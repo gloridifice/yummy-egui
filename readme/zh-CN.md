@@ -94,7 +94,9 @@ cargo doc --no-deps --all-features --open
 
 ## 开发
 
-- [发布到 crates.io](../PUBLISHING.md)
+- [文档索引（英文）](../doco/README.md)
+- [架构（英文）](../doco/architecture.md)与[开发指南（英文）](../doco/development.md)
+- [发布到 crates.io（英文）](../doco/publishing.md)
 - [公开 API](../src/lib.rs)
 - [控件展示](../src/demo.rs)与[独立示例](../examples/demo.rs)
 - [样式编辑器示例](../examples/style_editor.rs)

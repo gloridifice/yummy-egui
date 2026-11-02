@@ -94,7 +94,9 @@ Ce projet est distribué sous [licence MIT](../LICENSE). Le thème egui adapté 
 
 ## Développement
 
-- [Publication sur crates.io (en chinois)](../PUBLISHING.md)
+- [Index de la documentation (en anglais)](../doco/README.md)
+- [Architecture (en anglais)](../doco/architecture.md) et [guide de développement (en anglais)](../doco/development.md)
+- [Publication sur crates.io (en anglais)](../doco/publishing.md)
 - [API publique](../src/lib.rs)
 - [Galerie de composants](../src/demo.rs) et [exemple autonome](../examples/demo.rs)
 - [Exemple de l’éditeur de style](../examples/style_editor.rs)

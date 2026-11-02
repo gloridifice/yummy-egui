@@ -11,7 +11,7 @@ keywords = ["egui", "gui", "widgets", "theme", "ui"]
 categories = ["gui"]
 license = "MIT"
 publish = ["crates-io"]
-include = ["/src/**", "/examples/**", "/readme/**", "/README.md", "/PUBLISHING.md", "/LICENSE*", "/Cargo.toml", "/Cargo.lock"]
+include = ["/src/**", "/examples/**", "/readme/**", "/README.md", "/doco/*.md", "/doco/specs/*.md", "/LICENSE*", "/Cargo.toml", "/Cargo.lock"]
 
 [package.metadata.docs.rs]
 all-features = true

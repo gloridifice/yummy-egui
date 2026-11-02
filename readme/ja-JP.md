@@ -94,7 +94,9 @@ cargo doc --no-deps --all-features --open
 
 ## 開発
 
-- [crates.io への公開（中国語）](../PUBLISHING.md)
+- [ドキュメント一覧（英語）](../doco/README.md)
+- [アーキテクチャ（英語）](../doco/architecture.md)と[開発ガイド（英語）](../doco/development.md)
+- [crates.io への公開（英語）](../doco/publishing.md)
 - [公開 API](../src/lib.rs)
 - [ウィジェットギャラリー](../src/demo.rs)と[単独実行サンプル](../examples/demo.rs)
 - [スタイルエディターのサンプル](../examples/style_editor.rs)

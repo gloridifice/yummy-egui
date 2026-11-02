@@ -94,7 +94,9 @@ Licensed under the [MIT License](LICENSE). The adapted egui theme retains its [M
 
 ## Development
 
-- [Publishing to crates.io (中文)](PUBLISHING.md)
+- [Documentation index](doco/README.md)
+- [Architecture](doco/architecture.md) and [development guide](doco/development.md)
+- [Publishing to crates.io](doco/publishing.md)
 - [Public API](src/lib.rs)
 - [Component gallery](src/demo.rs) and [standalone example](examples/demo.rs)
 - [Style editor example](examples/style_editor.rs)

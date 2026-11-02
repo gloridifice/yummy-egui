@@ -39,7 +39,7 @@ jobs:
           if package["version"] != os.environ["EXPECTED_VERSION"]:
               raise SystemExit("Requested version does not match Cargo.toml")
           if not (package.get("license") or package.get("license-file")):
-              raise SystemExit("Declare a project-wide license before publishing; see PUBLISHING.md")
+              raise SystemExit("Declare a project-wide license before publishing; see doco/publishing.md")
           PY
       - name: Publish
         env:
