@@ -7,7 +7,7 @@ This document describes the current loading and application behavior of `Theme`,
 | Document | Deserialized value | Availability |
 | --- | --- | --- |
 | `egui.toml` | `egui::Style` | Always |
-| `charming_egui.toml` | `CharmingStyle` | Always |
+| `yummy_egui.toml` | `CharmingStyle` | Always |
 | `egui_dock.toml` | `egui_dock::Style` | Only with `dock` |
 
 `Theme::default()` uses the [embedded documents](../../src/theme/default/). `Theme::from_sources` accepts independent optional TOML strings: each `None` selects the corresponding embedded document.
@@ -61,7 +61,9 @@ warn_if_rect_changes_id = false
 show_focused_widget = false
 ```
 
-Custom document names and public type names retain `charming_egui` / `CharmingStyle`; they are not renamed to match the crate name. Serialized egui and dock styles are tied to their upstream schemas. Recheck external themes when changing those dependencies.
+The custom document is named `yummy_egui.toml`. Rename existing external `charming_egui.toml` files to `yummy_egui.toml`; the loader no longer reads the old filename and does not rename files automatically. The TOML schema is unchanged. Public Rust API names, including `CharmingStyle`, `ThemeSources::charming_egui`, `Theme::charming_style` and `DEFAULT_CHARMING_EGUI`, remain unchanged.
+
+Serialized egui and dock styles are tied to their upstream schemas. Recheck external themes when changing those dependencies.
 
 ## Verification scenarios
 

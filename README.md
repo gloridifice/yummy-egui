@@ -56,7 +56,7 @@ Start with the files in [`src/theme/default/`](src/theme/default/):
 | File | Controls |
 | --- | --- |
 | `egui.toml` | Base egui style |
-| `charming_egui.toml` | Custom widgets, lists, and headings |
+| `yummy_egui.toml` | Custom widgets, lists, and headings |
 | `egui_dock.toml` | Dock style, only with the `dock` feature |
 
 Load an existing directory and explicitly apply the result:
@@ -70,6 +70,8 @@ fn load_theme(ctx: &egui::Context) -> Result<(), yummy_egui::ThemeError> {
 ```
 
 Missing files fall back to their embedded defaults. Each supplied file replaces a whole document, not individual fields; copy a bundled document before editing it. Unreadable or invalid files return an error. Loading does not watch files or write changes back. Use `Theme::from_sources(ThemeSources { .. })` to load TOML strings instead.
+
+Rename existing external `charming_egui.toml` files to `yummy_egui.toml`; the old filename is no longer loaded. The TOML schema and public Rust API names are unchanged.
 
 When migrating an external `egui.toml` from egui 0.33, add `warn_if_rect_changes_id = false` and `show_focused_widget = false` to its `[debug]` section, if present.
 

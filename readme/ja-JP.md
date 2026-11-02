@@ -56,7 +56,7 @@ cargo run --example style_editor
 | ファイル | 設定対象 |
 | --- | --- |
 | `egui.toml` | egui の基本スタイル |
-| `charming_egui.toml` | カスタムウィジェット、リスト、見出し |
+| `yummy_egui.toml` | カスタムウィジェット、リスト、見出し |
 | `egui_dock.toml` | Dock スタイル。`dock` feature 有効時のみ |
 
 既存のディレクトリから読み込み、明示的に適用します。
@@ -70,6 +70,8 @@ fn load_theme(ctx: &egui::Context) -> Result<(), yummy_egui::ThemeError> {
 ```
 
 存在しないファイルには対応する組み込みの既定値を使用します。外部ファイルはフィールド単位ではなく文書全体を置き換えるため、同梱ファイルをコピーしてから編集してください。読み取り不能または無効なファイルはエラーになります。ファイルの監視や変更の書き戻しは行いません。TOML 文字列を直接渡す場合は `Theme::from_sources(ThemeSources { .. })` を使用します。
+
+既存の外部テーマファイル `charming_egui.toml` は `yummy_egui.toml` に名前を変更してください。旧ファイル名は読み込まれません。TOML スキーマと公開 Rust API の名前は変わりません。
 
 egui 0.33 用の外部 `egui.toml` を移行する場合、`[debug]` セクションがあれば `warn_if_rect_changes_id = false` と `show_focused_widget = false` を追加してください。
 

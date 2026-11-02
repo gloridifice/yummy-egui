@@ -56,7 +56,7 @@ Partez des fichiers de [`src/theme/default/`](../src/theme/default/) :
 | Fichier | Réglages |
 | --- | --- |
 | `egui.toml` | Style de base d’egui |
-| `charming_egui.toml` | Widgets, listes et titres personnalisés |
+| `yummy_egui.toml` | Widgets, listes et titres personnalisés |
 | `egui_dock.toml` | Style dock, uniquement avec la feature `dock` |
 
 Chargez un répertoire existant, puis appliquez explicitement le thème :
@@ -70,6 +70,8 @@ fn load_theme(ctx: &egui::Context) -> Result<(), yummy_egui::ThemeError> {
 ```
 
 Les fichiers absents utilisent les valeurs intégrées correspondantes. Chaque fichier fourni remplace un document entier, sans fusion champ par champ : copiez un fichier intégré avant de le modifier. Un fichier illisible ou invalide produit une erreur. Le chargement ne surveille pas les fichiers et n’enregistre pas les modifications. Pour charger des chaînes TOML, utilisez `Theme::from_sources(ThemeSources { .. })`.
+
+Renommez les fichiers de thème externes `charming_egui.toml` en `yummy_egui.toml` ; l’ancien nom n’est plus chargé. Le schéma TOML et les noms de l’API Rust publique restent inchangés.
 
 Lors de la migration d’un fichier externe `egui.toml` depuis egui 0.33, ajoutez `warn_if_rect_changes_id = false` et `show_focused_widget = false` dans sa section `[debug]`, si elle existe.
 

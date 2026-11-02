@@ -16,7 +16,7 @@ use std::{
 };
 
 pub const DEFAULT_EGUI: &str = include_str!("default/egui.toml");
-pub const DEFAULT_CHARMING_EGUI: &str = include_str!("default/charming_egui.toml");
+pub const DEFAULT_CHARMING_EGUI: &str = include_str!("default/yummy_egui.toml");
 #[cfg(feature = "dock")]
 pub const DEFAULT_EGUI_DOCK: &str = include_str!("default/egui_dock.toml");
 
@@ -87,11 +87,11 @@ impl Default for Theme {
 impl Theme {
     pub fn from_sources(sources: ThemeSources<'_>) -> Result<Self, ThemeError> {
         let charming: CharmingStyle = parse(
-            "charming_egui.toml",
+            "yummy_egui.toml",
             sources.charming_egui.unwrap_or(DEFAULT_CHARMING_EGUI),
         )?;
         charming.validate().map_err(|message| ThemeError::Invalid {
-            file: "charming_egui.toml",
+            file: "yummy_egui.toml",
             message,
         })?;
         Ok(Self {
@@ -124,7 +124,7 @@ impl Theme {
             });
         }
         let egui = read_optional(&path.join("egui.toml"))?;
-        let charming = read_optional(&path.join("charming_egui.toml"))?;
+        let charming = read_optional(&path.join("yummy_egui.toml"))?;
         #[cfg(feature = "dock")]
         let dock = read_optional(&path.join("egui_dock.toml"))?;
         Self::from_sources(ThemeSources {

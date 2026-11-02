@@ -35,7 +35,7 @@ Embedded TOML or explicit host-supplied files/strings
   -> widgets and lists read current styles while drawing
 ```
 
-The three documents are independent: `egui.toml`, `charming_egui.toml` and, with `dock`, `egui_dock.toml`. Missing documents use embedded defaults; supplied documents replace whole documents. There is no file watcher or automatic write-back. [The theming contract](specs/theming.md) defines validation, errors and migration requirements.
+The three documents are independent: `egui.toml`, `yummy_egui.toml` and, with `dock`, `egui_dock.toml`. Missing documents use embedded defaults; supplied documents replace whole documents. There is no file watcher or automatic write-back. [The theming contract](specs/theming.md) defines validation, errors and migration requirements.
 
 Default themes are parsed lazily and cached, then cloned for callers. Custom component styles are shared through `Arc<CharmingStyle>` in context-local egui data. Without an installed custom style, components use the embedded custom defaults. `Theme::apply` neither installs fonts nor applies a dock style; a host passes the dock style directly to its `DockArea`.
 

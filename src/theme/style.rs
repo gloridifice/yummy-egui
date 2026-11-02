@@ -82,7 +82,7 @@ fn defaults() -> &'static Arc<CharmingStyle> {
     static STYLE: OnceLock<Arc<CharmingStyle>> = OnceLock::new();
     STYLE.get_or_init(|| {
         let style: CharmingStyle = toml::from_str(super::DEFAULT_CHARMING_EGUI)
-            .expect("embedded charming_egui theme must match its schema");
+            .expect("embedded yummy_egui theme must match its schema");
         style
             .validate()
             .expect("embedded component sizes must be valid");

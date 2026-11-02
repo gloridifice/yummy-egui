@@ -42,7 +42,7 @@ fn external_documents_replace_independently_and_missing_files_use_embedded_defau
     let mut legacy: toml::Value = toml::from_str(DEFAULT_CHARMING_EGUI).unwrap();
     legacy.as_table_mut().unwrap().remove("headings");
     legacy["parameter_list"]["name_ratio"] = toml::Value::Float(0.35);
-    dir.write("charming_egui.toml", &toml::to_string(&legacy).unwrap());
+    dir.write("yummy_egui.toml", &toml::to_string(&legacy).unwrap());
     let loaded = Theme::load_dir(&dir.0).unwrap();
     assert_eq!(loaded.charming_style().parameter_list.name_ratio, 0.35);
     assert_eq!(loaded.charming_style().headings.h3.size, 14.0);
@@ -97,7 +97,7 @@ fn applying_external_component_styles_is_context_local_and_preserves_host_fonts(
     let mut style = CharmingStyle::default();
     style.parameter_list.name_ratio = 0.35;
     style.slider.marker = egui::Color32::RED;
-    dir.write("charming_egui.toml", &toml::to_string(&style).unwrap());
+    dir.write("yummy_egui.toml", &toml::to_string(&style).unwrap());
     let theme = Theme::load_dir(&dir.0).unwrap();
     let context = egui::Context::default();
     let other = egui::Context::default();
@@ -162,7 +162,7 @@ fn malformed_or_unsafe_component_sizes_are_reported_instead_of_silently_falling_
                     ..Default::default()
                 }),
                 Err(ThemeError::Invalid {
-                    file: "charming_egui.toml",
+                    file: "yummy_egui.toml",
                     ..
                 })
             ),

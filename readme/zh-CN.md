@@ -56,7 +56,7 @@ cargo run --example style_editor
 | 文件 | 配置内容 |
 | --- | --- |
 | `egui.toml` | egui 基础样式 |
-| `charming_egui.toml` | 自定义控件、列表和标题 |
+| `yummy_egui.toml` | 自定义控件、列表和标题 |
 | `egui_dock.toml` | Dock 样式，仅在启用 `dock` feature 时生效 |
 
 从已有目录加载主题，再显式应用：
@@ -70,6 +70,8 @@ fn load_theme(ctx: &egui::Context) -> Result<(), yummy_egui::ThemeError> {
 ```
 
 缺失的文件使用对应的内置默认值。外部文件替换整份文档，而非逐字段合并，建议先复制内置文件再修改。无法读取或格式无效的文件会返回错误。加载操作不会监听文件变化，也不会回写修改。若要直接传入 TOML 字符串，可使用 `Theme::from_sources(ThemeSources { .. })`。
+
+请将已有外部主题文件 `charming_egui.toml` 重命名为 `yummy_egui.toml`，旧文件名不再加载。TOML 结构和公开 Rust API 名称保持不变。
 
 从 egui 0.33 迁移外部 `egui.toml` 时，若文件包含 `[debug]` 段，请在其中补上 `warn_if_rect_changes_id = false` 和 `show_focused_widget = false`。
 
