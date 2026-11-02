@@ -136,21 +136,25 @@ fn applying_external_component_styles_is_context_local_and_preserves_host_fonts(
 
 #[test]
 fn malformed_or_unsafe_component_sizes_are_reported_instead_of_silently_falling_back() {
-    for (from, to) in [
-        ("name_ratio = 0.42", "name_ratio = 1.0"),
-        ("column_spacing = 8.0", "column_spacing = -1.0"),
-        ("animation_ms = 57.0", "animation_ms = nan"),
-        ("size = 20.0", "size = 0.0"),
-        ("margin_top = 12.0", "margin_top = -1.0"),
-        ("margin_bottom = 4.0", "margin_bottom = inf"),
-        ("width = 2.0\n", "width = 0.0\n"),
-        ("hover_width = 4.8", "hover_width = 1.0"),
-        (
-            "background = [21, 21, 21, 255]",
-            "background = [21, 21, 21, 0]",
-        ),
+    for (section, invalid) in [
+        ("parameter_list", "name_ratio = 1.0"),
+        ("parameter_list", "column_spacing = -1.0"),
+        ("slider", "animation_ms = nan"),
+        ("headings.h1", "size = 0.0"),
+        ("headings.h1", "margin_top = -1.0"),
+        ("headings.h3", "margin_bottom = inf"),
+        ("slider", "width = 0.0"),
+        ("slider", "hover_width = 1.0"),
+        ("slider", "background = [21, 21, 21, 0]"),
     ] {
-        let text = DEFAULT_CHARMING_EGUI.replace(from, to);
+        let mut document: toml::Value = toml::from_str(DEFAULT_CHARMING_EGUI).unwrap();
+        let mut table = &mut document;
+        for key in section.split('.') {
+            table = table.get_mut(key).unwrap();
+        }
+        let values: toml::Table = toml::from_str(invalid).unwrap();
+        table.as_table_mut().unwrap().extend(values);
+        let text = toml::to_string(&document).unwrap();
         assert!(
             matches!(
                 Theme::from_sources(ThemeSources {
@@ -162,7 +166,7 @@ fn malformed_or_unsafe_component_sizes_are_reported_instead_of_silently_falling_
                     ..
                 })
             ),
-            "accepted {to}"
+            "accepted {section}.{invalid}"
         );
     }
     assert!(

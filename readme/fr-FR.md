@@ -88,10 +88,11 @@ Les exemples nécessitent un environnement graphique et les dépendances systèm
 
 ## Licence
 
-Aucune licence globale n’est encore déclarée pour le projet. Le thème egui adapté comporte une [notice MIT distincte de wgpu_pbr](../src/theme/default/LICENSE-wgpu_pbr.txt) ; cette notice ne définit pas la licence de l’ensemble de la crate.
+Ce projet est distribué sous [licence MIT](../LICENSE). Le thème egui adapté conserve sa [notice MIT de wgpu_pbr](../src/theme/default/LICENSE-wgpu_pbr.txt).
 
 ## Développement
 
+- [Publication sur crates.io (en chinois)](../PUBLISHING.md)
 - [API publique](../src/lib.rs)
 - [Galerie de composants](../src/demo.rs) et [exemple autonome](../examples/demo.rs)
 - [Exemple de l’éditeur de style](../examples/style_editor.rs)

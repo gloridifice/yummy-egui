@@ -1,0 +1,52 @@
+name: Publish to crates.io
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version from Cargo.toml to publish (for example, 0.1.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: crates-io-publish
+  cancel-in-progress: false
+
+jobs:
+  check:
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    needs: check
+    runs-on: ubuntu-latest
+    environment: crates-io
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Check version and license
+        env:
+          EXPECTED_VERSION: ${{ inputs.version }}
+        run: |
+          python3 - <<'PY'
+          import os
+          import pathlib
+          import tomllib
+
+          package = tomllib.loads(pathlib.Path("Cargo.toml").read_text())["package"]
+          if package["version"] != os.environ["EXPECTED_VERSION"]:
+              raise SystemExit("Requested version does not match Cargo.toml")
+          if not (package.get("license") or package.get("license-file")):
+              raise SystemExit("Declare a project-wide license before publishing; see PUBLISHING.md")
+          PY
+      - name: Publish
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: |
+          if [ -z "$CARGO_REGISTRY_TOKEN" ]; then
+            echo "Configure CARGO_REGISTRY_TOKEN in the crates-io environment."
+            exit 1
+          fi
+          cargo publish --locked --registry crates-io

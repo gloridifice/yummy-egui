@@ -4,7 +4,17 @@ version = "0.1.0"
 edition = "2024"
 rust-version = "1.88"
 description = "Backend-independent egui widgets, lists and TOML themes"
-publish = false
+repository = "https://github.com/gloridifice/yummy-egui"
+documentation = "https://docs.rs/yummy_egui"
+readme = "README.md"
+keywords = ["egui", "gui", "widgets", "theme", "ui"]
+categories = ["gui"]
+license = "MIT"
+publish = ["crates-io"]
+include = ["/src/**", "/examples/**", "/readme/**", "/README.md", "/PUBLISHING.md", "/LICENSE*", "/Cargo.toml", "/Cargo.lock"]
+
+[package.metadata.docs.rs]
+all-features = true
 
 [features]
 default = []

@@ -1,0 +1,4 @@
+[alias]
+# These commands never upload a crate. Commit changes before running them.
+publish-check = "publish --dry-run --locked --registry crates-io"
+package-list = "package --list --locked"

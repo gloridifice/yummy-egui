@@ -9,3 +9,7 @@
 /.vscode/
 .DS_Store
 Thumbs.db
+
+# Registry credentials (use the user-level Cargo directory instead)
+/.cargo/credentials
+/.cargo/credentials.toml

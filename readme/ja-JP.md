@@ -88,10 +88,11 @@ cargo doc --no-deps --all-features --open
 
 ## ライセンス
 
-プロジェクト全体のライセンスはまだ宣言されていません。改変した egui テーマには別途 [wgpu_pbr の MIT ライセンス表記](../src/theme/default/LICENSE-wgpu_pbr.txt)がありますが、crate 全体のライセンスを定めるものではありません。
+本プロジェクトは [MIT ライセンス](../LICENSE)で公開されています。改変した egui テーマには [wgpu_pbr の MIT ライセンス表記](../src/theme/default/LICENSE-wgpu_pbr.txt)を保持しています。
 
 ## 開発
 
+- [crates.io への公開（中国語）](../PUBLISHING.md)
 - [公開 API](../src/lib.rs)
 - [ウィジェットギャラリー](../src/demo.rs)と[単独実行サンプル](../examples/demo.rs)
 - [スタイルエディターのサンプル](../examples/style_editor.rs)

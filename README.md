@@ -88,10 +88,11 @@ The examples require a graphical environment and the native dependencies require
 
 ## License
 
-No project-wide license is declared yet. The adapted egui theme carries a separate [MIT notice from wgpu_pbr](src/theme/default/LICENSE-wgpu_pbr.txt); this notice does not establish a license for the entire crate.
+Licensed under the [MIT License](LICENSE). The adapted egui theme retains its [MIT notice from wgpu_pbr](src/theme/default/LICENSE-wgpu_pbr.txt).
 
 ## Development
 
+- [Publishing to crates.io (中文)](PUBLISHING.md)
 - [Public API](src/lib.rs)
 - [Component gallery](src/demo.rs) and [standalone example](examples/demo.rs)
 - [Style editor example](examples/style_editor.rs)

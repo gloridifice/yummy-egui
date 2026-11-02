@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Rust ${{ matrix.rust }}
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        rust: [stable, "1.88.0"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.rust }}
+          components: rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - name: Check formatting
+        if: matrix.rust == 'stable'
+        run: cargo fmt --all -- --check
+      - name: Check library and examples
+        run: cargo check --locked --all-targets --all-features
+      - name: Test default features
+        run: cargo test --locked
+      - name: Test all features
+        run: cargo test --locked --all-features
+      - name: Build documentation
+        env:
+          RUSTDOCFLAGS: -D warnings
+        run: cargo doc --locked --no-deps --all-features
+      - name: Verify default-feature package
+        run: cargo publish-check
+      - name: Verify all-feature package
+        run: cargo publish-check --all-features

@@ -88,10 +88,11 @@ cargo doc --no-deps --all-features --open
 
 ## 许可证
 
-项目尚未声明整体许可证。改编的 egui 主题附有独立的 [wgpu_pbr MIT 许可声明](../src/theme/default/LICENSE-wgpu_pbr.txt)，该声明不代表整个 crate 的许可。
+本项目采用 [MIT 许可证](../LICENSE)。改编的 egui 主题保留其 [wgpu_pbr MIT 许可声明](../src/theme/default/LICENSE-wgpu_pbr.txt)。
 
 ## 开发
 
+- [发布到 crates.io](../PUBLISHING.md)
 - [公开 API](../src/lib.rs)
 - [控件展示](../src/demo.rs)与[独立示例](../examples/demo.rs)
 - [样式编辑器示例](../examples/style_editor.rs)
