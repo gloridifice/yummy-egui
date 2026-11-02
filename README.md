@@ -6,7 +6,7 @@ English | [简体中文](readme/zh-CN.md) | [日本語](readme/ja-JP.md) | [Fran
 
 </div>
 
-Backend-independent widgets, parameter forms, selection lists, and TOML themes for egui 0.33.3.
+Backend-independent widgets, parameter forms, selection lists, and TOML themes for egui 0.34.3.
 
 The application owns its rendering backend, fonts, windows, selection state, and persistence. `eframe` is used only by the examples.
 
@@ -47,7 +47,7 @@ cargo run --example style_editor
 - Panel buttons, action rows, exclusive choices, segmented controls, and H1–H3 headings.
 - Embedded TOML themes, explicit external theme loading, and context-local styles.
 - A live style editor for custom widgets and common egui settings; edits stay in memory and exclude dock styles.
-- Optional `egui_dock` 0.18 integration through the `dock` feature.
+- Optional `egui_dock` 0.19 integration through the `dock` feature.
 
 ## Themes
 
@@ -71,11 +71,13 @@ fn load_theme(ctx: &egui::Context) -> Result<(), yummy_egui::ThemeError> {
 
 Missing files fall back to their embedded defaults. Each supplied file replaces a whole document, not individual fields; copy a bundled document before editing it. Unreadable or invalid files return an error. Loading does not watch files or write changes back. Use `Theme::from_sources(ThemeSources { .. })` to load TOML strings instead.
 
+When migrating an external `egui.toml` from egui 0.33, add `warn_if_rect_changes_id = false` and `show_focused_widget = false` to its `[debug]` section, if present.
+
 For dock styling, enable `features = ["dock"]` on the dependency and pass `theme.dock_style().clone()` to `DockArea::style(...)`. `Theme::apply` does not style dock areas automatically.
 
 ## Build from Source
 
-With Rust 1.88+ installed, run from the repository root:
+With Rust 1.92+ installed, run from the repository root:
 
 ```sh
 cargo build --release

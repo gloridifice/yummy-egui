@@ -6,7 +6,7 @@ fn parameter_groups_share_ratio_even_with_oversized_controls() {
     let ctx = egui::Context::default();
     for width in [240.0, 400.0] {
         for _ in 0..2 {
-            let _ = ctx.run(
+            let _ = ctx.run_ui(
                 egui::RawInput {
                     screen_rect: Some(egui::Rect::from_min_size(
                         egui::Pos2::ZERO,
@@ -14,8 +14,8 @@ fn parameter_groups_share_ratio_even_with_oversized_controls() {
                     )),
                     ..Default::default()
                 },
-                |ctx| {
-                    egui::CentralPanel::default().show(ctx, |ui| {
+                |ui| {
+                    egui::CentralPanel::default().show_inside(ui, |ui| {
                         ui.set_width(width);
                         let start = ui.cursor().left();
                         let expected = start + (width - 8.0) * 0.42 + 8.0;
@@ -58,7 +58,7 @@ fn parameter_names_and_controls_share_row_centers() {
         // Grid dimensions settle across passes, including after a panel resize.
         for frame in 0..3 {
             let mut controls = Vec::new();
-            let output = ctx.run(
+            let output = ctx.run_ui(
                 egui::RawInput {
                     screen_rect: Some(egui::Rect::from_min_size(
                         egui::Pos2::ZERO,
@@ -66,9 +66,9 @@ fn parameter_names_and_controls_share_row_centers() {
                     )),
                     ..Default::default()
                 },
-                |ctx| {
+                |ui| {
                     controls.clear();
-                    egui::CentralPanel::default().show(ctx, |ui| {
+                    egui::CentralPanel::default().show_inside(ui, |ui| {
                         ui.set_width(width);
                         ui.spacing_mut().interact_size.y = height;
                         ParameterList::new("row alignment").show(ui, |list| {

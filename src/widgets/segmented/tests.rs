@@ -7,7 +7,7 @@ fn segments_select_exclusively_report_changes_and_respect_disabled_ui() {
     let mut value = 0;
     let mut frame = |events: Vec<egui::Event>, enabled: bool| {
         let mut result = (egui::Rect::NOTHING, false, value);
-        let _ = ctx.run(
+        let _ = ctx.run_ui(
             egui::RawInput {
                 screen_rect: Some(egui::Rect::from_min_size(
                     egui::Pos2::ZERO,
@@ -16,8 +16,8 @@ fn segments_select_exclusively_report_changes_and_respect_disabled_ui() {
                 events,
                 ..Default::default()
             },
-            |ctx| {
-                egui::CentralPanel::default().show(ctx, |ui| {
+            |ui| {
+                egui::CentralPanel::default().show_inside(ui, |ui| {
                     ui.add_enabled_ui(enabled, |ui| {
                         let response = segmented_control(
                             ui,

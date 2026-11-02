@@ -8,14 +8,14 @@ fn frame<T: Numeric>(
     events: Vec<egui::Event>,
 ) -> egui::Rect {
     let mut bounds = Rect::NOTHING;
-    let _ = ctx.run(
+    let _ = ctx.run_ui(
         egui::RawInput {
             screen_rect: Some(Rect::from_min_size(Pos2::ZERO, Vec2::new(500.0, 200.0))),
             events,
             ..Default::default()
         },
-        |ctx| {
-            egui::CentralPanel::default().show(ctx, |ui| {
+        |ui| {
+            egui::CentralPanel::default().show_inside(ui, |ui| {
                 ui.set_width(400.0);
                 bounds = ui
                     .add(
@@ -85,8 +85,8 @@ fn slider_editor_matches_standalone_editor_with_theme_height_and_padding() {
     for (minimum_height, padding_y) in [(22.0, 1.0), (30.0, 1.0), (22.0, 6.0)] {
         let mut value = 1.0;
         let mut standalone = 1.0;
-        let _ = ctx.run(egui::RawInput::default(), |ctx| {
-            egui::CentralPanel::default().show(ctx, |ui| {
+        let _ = ctx.run_ui(egui::RawInput::default(), |ui| {
+            egui::CentralPanel::default().show_inside(ui, |ui| {
                 ui.spacing_mut().interact_size.y = minimum_height;
                 ui.spacing_mut().button_padding.y = padding_y;
                 let expected = ui.add(egui::DragValue::new(&mut standalone)).rect.height();

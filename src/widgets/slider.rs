@@ -158,7 +158,7 @@ impl<T: Numeric> egui::Widget for ParameterSlider<'_, T> {
             ui.spacing_mut().slider_rail_height = height;
             ui.spacing_mut().item_spacing.y = 0.0;
             ui.add_space(appearance.outset + 1.0);
-            // egui 0.33's rectangular handle has radius thickness / 2.5.
+            // egui 0.34's rectangular handle has radius thickness / 2.5.
             // Use its footprint only for input: reserve a stable center range with
             // the full hover width + end padding, independent of hover animation.
             let aspect_ratio = appearance.end_inset(track_width) / (height / 2.5);

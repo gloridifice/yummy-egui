@@ -1,4 +1,4 @@
-# Source: wgpu_pbr/assets/egui_themes/default.ron, adapted to egui 0.33.3.
+# Source: wgpu_pbr/assets/egui_themes/default.ron, adapted to egui 0.34.3.
 # Converted from this project's effective RON style; see LICENSE-wgpu_pbr.txt.
 override_text_valign = "Center"
 drag_value_text_style = "Button"
@@ -449,7 +449,9 @@ show_expand_height = false
 show_resize = false
 show_interactive_widgets = false
 show_widget_hits = false
+warn_if_rect_changes_id = false
 show_unaligned = true
+show_focused_widget = false
 
 [scroll_animation]
 points_per_second = 1000.0

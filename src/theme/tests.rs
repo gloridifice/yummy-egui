@@ -115,8 +115,8 @@ fn applying_external_component_styles_is_context_local_and_preserves_host_fonts(
         egui::Color32::RED
     );
     assert_eq!(CharmingStyle::get(&other).parameter_list.name_ratio, 0.42);
-    let _ = context.run(egui::RawInput::default(), |context| {
-        assert!(context.fonts(|fonts| fonts.definitions().families.contains_key(&family)));
+    let _ = context.run_ui(egui::RawInput::default(), |ui| {
+        assert!(ui.fonts(|fonts| fonts.definitions().families.contains_key(&family)));
     });
 
     // A failed reload returns no Theme, so the current applied theme is unchanged.

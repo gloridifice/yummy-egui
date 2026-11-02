@@ -1,4 +1,4 @@
-# Source: wgpu_pbr/assets/egui_themes/default.ron, adapted to egui_dock 0.18.
+# Source: wgpu_pbr/assets/egui_themes/default.ron, adapted to egui_dock 0.19.
 # Converted from this project's effective RON style; see LICENSE-wgpu_pbr.txt.
 [dock_area_padding]
 left = 4

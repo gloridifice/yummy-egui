@@ -88,7 +88,7 @@ impl SelectionRows<'_> {
         text: impl Into<egui::WidgetText>,
     ) -> Response {
         let id = self.ui.make_persistent_id(("item", id));
-        // push_id alone still salts native auto IDs with row order in egui 0.33.
+        // push_id alone still salts native auto IDs with row order in egui 0.34.
         self.ui
             .scope_builder(egui::UiBuilder::new().id(id), |ui| {
                 ui.add_enabled_ui(enabled, |ui| {

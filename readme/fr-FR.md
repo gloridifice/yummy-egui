@@ -6,7 +6,7 @@
 
 </div>
 
-Une bibliothèque de widgets, formulaires de paramètres, listes de sélection et thèmes TOML pour egui 0.33.3, indépendante du moteur de rendu.
+Une bibliothèque de widgets, formulaires de paramètres, listes de sélection et thèmes TOML pour egui 0.34.3, indépendante du moteur de rendu.
 
 L’application gère le rendu, les polices, les fenêtres, la sélection et la persistance. `eframe` sert uniquement aux exemples.
 
@@ -47,7 +47,7 @@ cargo run --example style_editor
 - Boutons de panneau, rangées d’actions, choix exclusifs, contrôles segmentés et titres H1–H3.
 - Thèmes TOML intégrés, chargement explicite de thèmes externes et styles propres à chaque Context.
 - Éditeur de style en direct pour les widgets personnalisés et les réglages courants d’egui ; modifications en mémoire uniquement, hors styles dock.
-- Intégration facultative d’`egui_dock` 0.18 via la feature `dock`.
+- Intégration facultative d’`egui_dock` 0.19 via la feature `dock`.
 
 ## Thèmes
 
@@ -71,11 +71,13 @@ fn load_theme(ctx: &egui::Context) -> Result<(), yummy_egui::ThemeError> {
 
 Les fichiers absents utilisent les valeurs intégrées correspondantes. Chaque fichier fourni remplace un document entier, sans fusion champ par champ : copiez un fichier intégré avant de le modifier. Un fichier illisible ou invalide produit une erreur. Le chargement ne surveille pas les fichiers et n’enregistre pas les modifications. Pour charger des chaînes TOML, utilisez `Theme::from_sources(ThemeSources { .. })`.
 
+Lors de la migration d’un fichier externe `egui.toml` depuis egui 0.33, ajoutez `warn_if_rect_changes_id = false` et `show_focused_widget = false` dans sa section `[debug]`, si elle existe.
+
 Pour les styles dock, activez `features = ["dock"]` sur la dépendance et passez `theme.dock_style().clone()` à `DockArea::style(...)`. `Theme::apply` ne modifie pas automatiquement le style des zones dock.
 
 ## Compilation depuis les sources
 
-Avec Rust 1.88+ installé, lancez ces commandes à la racine du dépôt :
+Avec Rust 1.92+ installé, lancez ces commandes à la racine du dépôt :
 
 ```sh
 cargo build --release

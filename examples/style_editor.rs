@@ -8,8 +8,8 @@ struct StyleEditorApp {
 }
 
 impl eframe::App for StyleEditorApp {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        egui::TopBottomPanel::top("toolbar").show(ctx, |ui| {
+    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
+        egui::Panel::top("toolbar").show_inside(ui, |ui| {
             let [editor, preview] = yummy_egui::action_row(
                 ui,
                 [
@@ -24,8 +24,8 @@ impl eframe::App for StyleEditorApp {
                 self.preview_open = true;
             }
         });
-        style_editor_window(ctx, &mut self.editor_open);
-        demo_window(ctx, &mut self.preview_open, &mut self.preview);
+        style_editor_window(ui.ctx(), &mut self.editor_open);
+        demo_window(ui.ctx(), &mut self.preview_open, &mut self.preview);
     }
 }
 

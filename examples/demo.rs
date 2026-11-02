@@ -7,11 +7,11 @@ struct DemoApp {
 }
 
 impl eframe::App for DemoApp {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        egui::TopBottomPanel::top("toolbar").show(ctx, |ui| {
+    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
+        egui::Panel::top("toolbar").show_inside(ui, |ui| {
             ui.checkbox(&mut self.open, "Show demo");
         });
-        demo_window(ctx, &mut self.open, &mut self.state);
+        demo_window(ui.ctx(), &mut self.open, &mut self.state);
     }
 }
 

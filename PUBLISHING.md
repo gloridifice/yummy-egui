@@ -4,7 +4,7 @@
 
 本项目采用 [MIT 许可证](LICENSE)，`Cargo.toml` 已声明 `license = "MIT"`。发布包包含根目录许可证，以及 `src/theme/default/LICENSE-wgpu_pbr.txt` 中保留的主题许可声明。
 
-本地使用现有 Rust 工具链即可，无需额外安装旧版本。本项目声明 Rust 1.88 为最低支持版本；CI 使用 Windows，分别在 Rust 1.88.0 和 stable 上检查编译、测试、文档和打包，它不代表 Linux/macOS 的完整测试。
+本地使用现有 Rust 工具链即可，无需额外安装旧版本。本项目声明 Rust 1.92 为最低支持版本；CI 使用 Windows，分别在 Rust 1.92.0 和 stable 上检查编译、测试、文档和打包，它不代表 Linux/macOS 的完整测试。
 
 ## 本地预检
 
@@ -52,7 +52,7 @@ crates.io 的包名首次发布时才会确定归属；`yummy-egui` 与 `yummy_e
 先完成登录和预检，提交当前修改，再运行：
 
 ```sh
-# 首次发布当前 0.1.0
+# 发布 Cargo.toml 中的当前版本
 cargo release
 cargo release --execute
 
@@ -70,6 +70,6 @@ cargo release patch --execute
 1. 将配置推送到 GitHub 默认分支。
 2. 在仓库 **Settings → Environments** 中创建 `crates-io`，配置允许发布的分支；可用时添加 required reviewers。
 3. 在该环境中添加名为 `CARGO_REGISTRY_TOKEN` 的 secret，值为上述 crates.io 发布令牌。不要使用 `GITHUB_TOKEN` 代替。
-4. 打开 **Actions → Publish to crates.io → Run workflow**，选择待发布的分支或标签，输入与 `Cargo.toml` 完全相同的版本号，例如 `0.1.0`。
+4. 打开 **Actions → Publish to crates.io → Run workflow**，选择待发布的分支或标签，输入与 `Cargo.toml` 完全相同的版本号，例如 `0.1.1`。
 
 工作流先运行 CI，再校验版本和许可证，最后使用环境 secret 发布。没有配置令牌、版本不符或检查失败时不会上传。不要对同一版本同时执行本地和 Actions 发布。

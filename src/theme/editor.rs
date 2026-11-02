@@ -30,7 +30,7 @@ pub fn style_editor_window(ctx: &egui::Context, open: &mut bool) {
             ctx.data_mut(|data| data.insert_temp(page_id, page));
             let mut custom = CharmingStyle::get(ctx).as_ref().clone();
             let before = custom.clone();
-            let mut base = ctx.style().as_ref().clone();
+            let mut base = ctx.global_style().as_ref().clone();
             let base_before = base.clone();
             match page {
                 0 => custom_editor(ui, &mut custom),
@@ -46,7 +46,7 @@ pub fn style_editor_window(ctx: &egui::Context, open: &mut bool) {
                 }
             }
             if base != base_before {
-                ctx.set_style(base);
+                ctx.set_global_style(base);
             }
         });
 }

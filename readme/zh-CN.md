@@ -6,7 +6,7 @@
 
 </div>
 
-基于 egui 0.33.3 的控件、参数表单、选择列表和 TOML 主题库，不绑定渲染后端。
+基于 egui 0.34.3 的控件、参数表单、选择列表和 TOML 主题库，不绑定渲染后端。
 
 渲染后端、字体、窗口、选择状态和持久化由应用管理。`eframe` 仅用于示例程序。
 
@@ -47,7 +47,7 @@ cargo run --example style_editor
 - 提供面板按钮、操作按钮行、互斥选项、分段控件和 H1–H3 标题。
 - 内置 TOML 主题，支持显式加载外部主题；样式按 Context 隔离。
 - 实时样式编辑器可调整自定义控件和常用 egui 设置；修改仅保存在内存中，不包含 dock 样式。
-- 通过可选的 `dock` feature 集成 `egui_dock` 0.18。
+- 通过可选的 `dock` feature 集成 `egui_dock` 0.19。
 
 ## 主题
 
@@ -71,11 +71,13 @@ fn load_theme(ctx: &egui::Context) -> Result<(), yummy_egui::ThemeError> {
 
 缺失的文件使用对应的内置默认值。外部文件替换整份文档，而非逐字段合并，建议先复制内置文件再修改。无法读取或格式无效的文件会返回错误。加载操作不会监听文件变化，也不会回写修改。若要直接传入 TOML 字符串，可使用 `Theme::from_sources(ThemeSources { .. })`。
 
+从 egui 0.33 迁移外部 `egui.toml` 时，若文件包含 `[debug]` 段，请在其中补上 `warn_if_rect_changes_id = false` 和 `show_focused_widget = false`。
+
 使用 dock 样式时，在依赖中启用 `features = ["dock"]`，再将 `theme.dock_style().clone()` 传给 `DockArea::style(...)`。`Theme::apply` 不会自动设置 dock 区域的样式。
 
 ## 从源码构建
 
-安装 Rust 1.88+ 后，在仓库根目录执行：
+安装 Rust 1.92+ 后，在仓库根目录执行：
 
 ```sh
 cargo build --release

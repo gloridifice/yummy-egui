@@ -143,7 +143,7 @@ impl Theme {
         } else {
             egui::Theme::Light
         });
-        context.set_style(self.egui.clone());
+        context.set_global_style(self.egui.clone());
         self.charming.install(context);
     }
 

@@ -18,7 +18,7 @@ impl Harness {
     fn frame(&mut self, order: [&'static str; 3], events: Vec<egui::Event>) -> Vec<Response> {
         let mut responses = Vec::new();
         self.menu_open = false;
-        let _ = self.context.run(
+        let _ = self.context.run_ui(
             egui::RawInput {
                 screen_rect: Some(egui::Rect::from_min_size(
                     egui::Pos2::ZERO,
@@ -27,9 +27,9 @@ impl Harness {
                 events,
                 ..Default::default()
             },
-            |ctx| {
+            |ui| {
                 responses.clear();
-                egui::CentralPanel::default().show(ctx, |ui| {
+                egui::CentralPanel::default().show_inside(ui, |ui| {
                     SelectionList::new("items")
                         .max_height(200.0)
                         .show(ui, |rows| {
