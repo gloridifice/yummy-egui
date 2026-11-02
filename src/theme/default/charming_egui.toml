@@ -1,0 +1,51 @@
+# All distances are logical points (pt); animation_ms is real-time milliseconds.
+# A file replaces this whole document, not individual fields.
+[slider]
+inset = 4.1
+outset = 0.5
+width = 2.0
+hover_width = 4.8
+value_width = 64.0
+animation_ms = 57.0
+edge_padding = 2.0
+background = [21, 21, 21, 255]
+marker = [141, 141, 141, 255]
+hover_marker = [223, 223, 223, 255]
+# Omitted background_radius / marker_radius inherit egui's inactive widget radius.
+# Height inherits egui's interaction size; a widget can explicitly override it.
+
+[panel_button]
+margin = { left = 0, right = 0, top = 4, bottom = 4 }
+min_action_width = 96.0
+
+[parameter_list]
+name_ratio = 0.42
+column_spacing = 8.0
+row_spacing = 6.0
+group_spacing = 8.0
+striped = true
+
+[selection_list]
+frame = true
+wrap = true
+# Omitted row_spacing inherits egui.spacing.item_spacing.y.
+
+[choices]
+spacing = 3.0
+
+# RichText headings use egui's strong_text_color (high contrast in dark/light themes).
+# H1/H2 are bold; H3 uses regular text weight. All sizes and margins are pt.
+[headings.h1]
+size = 20.0
+margin_top = 12.0
+margin_bottom = 8.0
+
+[headings.h2]
+size = 16.0
+margin_top = 10.0
+margin_bottom = 6.0
+
+[headings.h3]
+size = 14.0
+margin_top = 8.0
+margin_bottom = 4.0

@@ -1,0 +1,459 @@
+# Source: wgpu_pbr/assets/egui_themes/default.ron, adapted to egui 0.33.3.
+# Converted from this project's effective RON style; see LICENSE-wgpu_pbr.txt.
+override_text_valign = "Center"
+drag_value_text_style = "Button"
+animation_time = 0.10000000149011612
+explanation_tooltips = false
+url_in_tooltip = false
+always_scroll_the_only_direction = false
+compact_menu_style = true
+
+[text_styles.Small]
+size = 9.0
+family = "Proportional"
+
+[text_styles.Body]
+size = 13.0
+family = "Proportional"
+
+[text_styles.Monospace]
+size = 13.0
+family = "Monospace"
+
+[text_styles.Button]
+size = 13.0
+family = "Proportional"
+
+[text_styles.Heading]
+size = 18.0
+family = "Proportional"
+
+[spacing]
+indent = 18.0
+slider_width = 100.0
+slider_rail_height = 8.0
+combo_width = 100.0
+text_edit_width = 280.0
+icon_width = 14.0
+icon_width_inner = 8.0
+icon_spacing = 4.0
+tooltip_width = 500.0
+menu_width = 400.0
+menu_spacing = 2.0
+indent_ends_with_horizontal_line = false
+combo_height = 200.0
+
+[spacing.item_spacing]
+x = 8.0
+y = 3.0
+
+[spacing.window_margin]
+left = 6
+right = 6
+top = 6
+bottom = 6
+
+[spacing.button_padding]
+x = 4.0
+y = 1.0
+
+[spacing.menu_margin]
+left = 6
+right = 6
+top = 6
+bottom = 6
+
+[spacing.interact_size]
+x = 40.0
+y = 22.0
+
+[spacing.default_area_size]
+x = 600.0
+y = 400.0
+
+[spacing.scroll]
+floating = true
+bar_width = 10.0
+handle_min_length = 12.0
+bar_inner_margin = 4.0
+bar_outer_margin = 0.0
+floating_width = 2.0
+floating_allocated_width = 0.0
+foreground_color = true
+dormant_background_opacity = 0.0
+active_background_opacity = 0.4000000059604645
+interact_background_opacity = 0.699999988079071
+dormant_handle_opacity = 0.0
+active_handle_opacity = 0.6000000238418579
+interact_handle_opacity = 1.0
+
+[interaction]
+interact_radius = 5.0
+resize_grab_radius_side = 3.0
+resize_grab_radius_corner = 10.0
+show_tooltips_only_when_still = true
+tooltip_delay = 0.5
+tooltip_grace_time = 0.20000000298023224
+selectable_labels = true
+multi_widget_text_select = true
+
+[visuals]
+dark_mode = true
+text_alpha_from_coverage = "TwoCoverageMinusCoverageSq"
+weak_text_alpha = 0.6000000238418579
+hyperlink_color = [
+    90,
+    170,
+    255,
+    255,
+]
+faint_bg_color = [
+    5,
+    5,
+    5,
+    0,
+]
+extreme_bg_color = [
+    10,
+    10,
+    10,
+    255,
+]
+code_bg_color = [
+    64,
+    64,
+    64,
+    255,
+]
+warn_fg_color = [
+    255,
+    143,
+    0,
+    255,
+]
+error_fg_color = [
+    255,
+    0,
+    0,
+    255,
+]
+window_fill = [
+    27,
+    27,
+    27,
+    255,
+]
+window_highlight_topmost = true
+panel_fill = [
+    27,
+    27,
+    27,
+    255,
+]
+resize_corner_size = 12.0
+clip_rect_margin = 3.0
+button_frame = true
+collapsing_header_frame = false
+indent_has_left_vline = true
+striped = false
+slider_trailing_fill = false
+image_loading_spinners = true
+numeric_color_space = "GammaByte"
+disabled_alpha = 0.5
+
+[visuals.widgets.noninteractive]
+bg_fill = [
+    27,
+    27,
+    27,
+    255,
+]
+weak_bg_fill = [
+    27,
+    27,
+    27,
+    255,
+]
+expansion = 0.0
+
+[visuals.widgets.noninteractive.bg_stroke]
+width = 1.0
+color = [
+    45,
+    45,
+    45,
+    255,
+]
+
+[visuals.widgets.noninteractive.corner_radius]
+nw = 2
+ne = 2
+sw = 2
+se = 2
+
+[visuals.widgets.noninteractive.fg_stroke]
+width = 1.0
+color = [
+    140,
+    140,
+    140,
+    255,
+]
+
+[visuals.widgets.inactive]
+bg_fill = [
+    60,
+    60,
+    60,
+    255,
+]
+weak_bg_fill = [
+    60,
+    60,
+    60,
+    255,
+]
+expansion = 0.0
+
+[visuals.widgets.inactive.bg_stroke]
+width = 0.0
+color = [
+    0,
+    0,
+    0,
+    0,
+]
+
+[visuals.widgets.inactive.corner_radius]
+nw = 2
+ne = 2
+sw = 2
+se = 2
+
+[visuals.widgets.inactive.fg_stroke]
+width = 1.0
+color = [
+    180,
+    180,
+    180,
+    255,
+]
+
+[visuals.widgets.hovered]
+bg_fill = [
+    70,
+    70,
+    70,
+    255,
+]
+weak_bg_fill = [
+    70,
+    70,
+    70,
+    255,
+]
+expansion = 0.0
+
+[visuals.widgets.hovered.bg_stroke]
+width = 1.0
+color = [
+    150,
+    150,
+    150,
+    255,
+]
+
+[visuals.widgets.hovered.corner_radius]
+nw = 3
+ne = 3
+sw = 3
+se = 3
+
+[visuals.widgets.hovered.fg_stroke]
+width = 1.5
+color = [
+    240,
+    240,
+    240,
+    255,
+]
+
+[visuals.widgets.active]
+bg_fill = [
+    55,
+    55,
+    55,
+    255,
+]
+weak_bg_fill = [
+    55,
+    55,
+    55,
+    255,
+]
+expansion = 0.0
+
+[visuals.widgets.active.bg_stroke]
+width = 1.0
+color = [
+    255,
+    255,
+    255,
+    255,
+]
+
+[visuals.widgets.active.corner_radius]
+nw = 2
+ne = 2
+sw = 2
+se = 2
+
+[visuals.widgets.active.fg_stroke]
+width = 2.0
+color = [
+    255,
+    255,
+    255,
+    255,
+]
+
+[visuals.widgets.open]
+bg_fill = [
+    27,
+    27,
+    27,
+    255,
+]
+weak_bg_fill = [
+    45,
+    45,
+    45,
+    255,
+]
+expansion = 0.0
+
+[visuals.widgets.open.bg_stroke]
+width = 1.0
+color = [
+    60,
+    60,
+    60,
+    255,
+]
+
+[visuals.widgets.open.corner_radius]
+nw = 2
+ne = 2
+sw = 2
+se = 2
+
+[visuals.widgets.open.fg_stroke]
+width = 1.0
+color = [
+    210,
+    210,
+    210,
+    255,
+]
+
+[visuals.selection]
+bg_fill = [
+    0,
+    92,
+    128,
+    255,
+]
+
+[visuals.selection.stroke]
+width = 1.0
+color = [
+    192,
+    222,
+    255,
+    255,
+]
+
+[visuals.window_corner_radius]
+nw = 6
+ne = 6
+sw = 6
+se = 6
+
+[visuals.window_shadow]
+offset = [
+    10,
+    20,
+]
+blur = 15
+spread = 0
+color = [
+    0,
+    0,
+    0,
+    96,
+]
+
+[visuals.window_stroke]
+width = 1.0
+color = [
+    60,
+    60,
+    60,
+    255,
+]
+
+[visuals.menu_corner_radius]
+nw = 6
+ne = 6
+sw = 6
+se = 6
+
+[visuals.popup_shadow]
+offset = [
+    6,
+    10,
+]
+blur = 8
+spread = 0
+color = [
+    0,
+    0,
+    0,
+    96,
+]
+
+[visuals.text_cursor]
+preview = false
+blink = true
+on_duration = 0.5
+off_duration = 0.5
+
+[visuals.text_cursor.stroke]
+width = 2.0
+color = [
+    192,
+    222,
+    255,
+    255,
+]
+
+[visuals.handle_shape.Rect]
+aspect_ratio = 0.75
+
+[debug]
+debug_on_hover = false
+debug_on_hover_with_all_modifiers = false
+hover_shows_next = false
+show_expand_width = false
+show_expand_height = false
+show_resize = false
+show_interactive_widgets = false
+show_widget_hits = false
+show_unaligned = true
+
+[scroll_animation]
+points_per_second = 1000.0
+
+[scroll_animation.duration]
+min = 0.10000000149011612
+max = 0.30000001192092896

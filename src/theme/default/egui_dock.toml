@@ -1,0 +1,471 @@
+# Source: wgpu_pbr/assets/egui_themes/default.ron, adapted to egui_dock 0.18.
+# Converted from this project's effective RON style; see LICENSE-wgpu_pbr.txt.
+[dock_area_padding]
+left = 4
+right = 4
+top = 0
+bottom = 4
+
+[main_surface_border_stroke]
+width = 0.0
+color = [
+    0,
+    0,
+    0,
+    0,
+]
+
+[main_surface_border_rounding]
+nw = 0
+ne = 0
+sw = 0
+se = 0
+
+[buttons]
+close_tab_color = [
+    140,
+    140,
+    140,
+    255,
+]
+close_tab_active_color = [
+    255,
+    255,
+    255,
+    255,
+]
+close_tab_bg_fill = [
+    70,
+    70,
+    70,
+    255,
+]
+add_tab_align = "Right"
+add_tab_color = [
+    140,
+    140,
+    140,
+    255,
+]
+add_tab_active_color = [
+    255,
+    255,
+    255,
+    255,
+]
+add_tab_bg_fill = [
+    70,
+    70,
+    70,
+    255,
+]
+add_tab_border_color = [
+    27,
+    27,
+    27,
+    255,
+]
+close_all_tabs_color = [
+    140,
+    140,
+    140,
+    255,
+]
+close_all_tabs_active_color = [
+    255,
+    255,
+    255,
+    255,
+]
+close_all_tabs_bg_fill = [
+    70,
+    70,
+    70,
+    255,
+]
+close_all_tabs_border_color = [
+    27,
+    27,
+    27,
+    255,
+]
+close_all_tabs_disabled_color = [
+    60,
+    60,
+    60,
+    255,
+]
+collapse_tabs_color = [
+    140,
+    140,
+    140,
+    255,
+]
+collapse_tabs_active_color = [
+    255,
+    255,
+    255,
+    255,
+]
+collapse_tabs_bg_fill = [
+    70,
+    70,
+    70,
+    255,
+]
+collapse_tabs_border_color = [
+    27,
+    27,
+    27,
+    255,
+]
+minimize_window_color = [
+    140,
+    140,
+    140,
+    255,
+]
+minimize_window_active_color = [
+    255,
+    255,
+    255,
+    255,
+]
+minimize_window_bg_fill = [
+    70,
+    70,
+    70,
+    255,
+]
+minimize_window_border_color = [
+    27,
+    27,
+    27,
+    255,
+]
+
+[separator]
+width = 4.0
+extra_interact_width = 2.0
+extra = 175.0
+color_idle = [
+    0,
+    0,
+    0,
+    0,
+]
+color_hovered = [
+    153,
+    153,
+    153,
+    255,
+]
+color_dragged = [
+    216,
+    204,
+    151,
+    255,
+]
+
+[tab_bar]
+bg_fill = [
+    10,
+    10,
+    10,
+    255,
+]
+height = 32.0
+show_scroll_bar_on_overflow = true
+hline_color = [
+    0,
+    0,
+    0,
+    0,
+]
+fill_tab_bar = false
+
+[tab_bar.inner_margin]
+left = 4
+right = 3
+top = 5
+bottom = 0
+
+[tab_bar.corner_radius]
+nw = 4
+ne = 4
+sw = 0
+se = 0
+
+[tab]
+hline_below_active_tab_name = false
+spacing = 2.0
+
+[tab.active]
+outline_color = [
+    0,
+    0,
+    0,
+    0,
+]
+bg_fill = [
+    27,
+    27,
+    27,
+    255,
+]
+text_color = [
+    140,
+    140,
+    140,
+    255,
+]
+
+[tab.active.corner_radius]
+nw = 2
+ne = 2
+sw = 0
+se = 0
+
+[tab.inactive]
+outline_color = [
+    0,
+    0,
+    0,
+    0,
+]
+bg_fill = [
+    18,
+    18,
+    18,
+    255,
+]
+text_color = [
+    140,
+    140,
+    140,
+    255,
+]
+
+[tab.inactive.corner_radius]
+nw = 2
+ne = 2
+sw = 0
+se = 0
+
+[tab.focused]
+outline_color = [
+    0,
+    0,
+    0,
+    0,
+]
+bg_fill = [
+    27,
+    27,
+    27,
+    255,
+]
+text_color = [
+    255,
+    255,
+    255,
+    255,
+]
+
+[tab.focused.corner_radius]
+nw = 2
+ne = 2
+sw = 0
+se = 0
+
+[tab.hovered]
+outline_color = [
+    0,
+    0,
+    0,
+    0,
+]
+bg_fill = [
+    18,
+    18,
+    18,
+    255,
+]
+text_color = [
+    255,
+    255,
+    255,
+    255,
+]
+
+[tab.hovered.corner_radius]
+nw = 2
+ne = 2
+sw = 0
+se = 0
+
+[tab.inactive_with_kb_focus]
+outline_color = [
+    0,
+    0,
+    0,
+    0,
+]
+bg_fill = [
+    18,
+    18,
+    18,
+    255,
+]
+text_color = [
+    255,
+    255,
+    255,
+    255,
+]
+
+[tab.inactive_with_kb_focus.corner_radius]
+nw = 2
+ne = 2
+sw = 0
+se = 0
+
+[tab.active_with_kb_focus]
+outline_color = [
+    0,
+    0,
+    0,
+    0,
+]
+bg_fill = [
+    27,
+    27,
+    27,
+    255,
+]
+text_color = [
+    255,
+    255,
+    255,
+    255,
+]
+
+[tab.active_with_kb_focus.corner_radius]
+nw = 2
+ne = 2
+sw = 0
+se = 0
+
+[tab.focused_with_kb_focus]
+outline_color = [
+    0,
+    0,
+    0,
+    0,
+]
+bg_fill = [
+    27,
+    27,
+    27,
+    255,
+]
+text_color = [
+    255,
+    255,
+    255,
+    255,
+]
+
+[tab.focused_with_kb_focus.corner_radius]
+nw = 2
+ne = 2
+sw = 0
+se = 0
+
+[tab.tab_body]
+bg_fill = [
+    27,
+    27,
+    27,
+    255,
+]
+
+[tab.tab_body.inner_margin]
+left = 10
+right = 10
+top = 10
+bottom = 10
+
+[tab.tab_body.stroke]
+width = 0.0
+color = [
+    0,
+    0,
+    0,
+    255,
+]
+
+[tab.tab_body.corner_radius]
+nw = 2
+ne = 2
+sw = 2
+se = 2
+
+[overlay]
+selection_color = [
+    0,
+    46,
+    64,
+    128,
+]
+selection_stroke_width = 1.0
+button_spacing = 4.0
+max_button_size = 100.0
+surface_fade_opacity = 0.10000000149011612
+button_color = [
+    140,
+    140,
+    140,
+    255,
+]
+overlay_type = "Widgets"
+
+[overlay.hovered_leaf_highlight]
+color = [
+    0,
+    0,
+    0,
+    0,
+]
+expansion = 0.0
+
+[overlay.hovered_leaf_highlight.corner_radius]
+nw = 0
+ne = 0
+sw = 0
+se = 0
+
+[overlay.hovered_leaf_highlight.stroke]
+width = 0.0
+color = [
+    0,
+    0,
+    0,
+    0,
+]
+
+[overlay.button_border_stroke]
+width = 1.0
+color = [
+    60,
+    60,
+    60,
+    255,
+]
+
+[overlay.feel]
+window_drop_coverage = 0.5
+center_drop_coverage = 0.25
+fade_hold_time = 0.20000000298023224
+max_preference_time = 0.30000001192092896
+interact_expansion = 20.0
