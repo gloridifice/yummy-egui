@@ -3,6 +3,7 @@
 
 pub mod demo;
 pub mod lists;
+pub mod panels;
 pub mod theme;
 pub mod widgets;
 
@@ -12,6 +13,6 @@ pub use lists::{
 };
 pub use theme::{CharmingStyle, Theme, ThemeError, ThemeSources, style_editor_window};
 pub use widgets::{
-    PanelButton, ParameterSlider, SliderAppearance, action_row, choices, h1, h2, h3,
-    segmented_control,
+    IconButton, IconChoices, IconSegmentedControl, PanelButton, ParameterSlider, SliderAppearance,
+    action_row, choices, h1, h2, h3, segmented_control,
 };

@@ -24,9 +24,11 @@ cargo run --locked --example demo
 cargo run --locked --example style_editor
 ```
 
+The `demo` example has a fixed left sidebar with a vertical icon segmented selector: the grid icon opens the scrollable component gallery and the information icon opens the example information page. These SVGs are embedded from `examples/icons/`; the example installs `egui_extras` image loaders with the SVG feature enabled. The gallery state survives page switches. The `style_editor` example retains its separate preview and editor windows. Both examples construct native panels through `yummy_egui::panels` so their content margins match the theme's window margins (10 pt by default); the sidebar has no extra top spacer.
+
 These examples use eframe's Glow backend and bundled default fonts. They need a graphical environment and the native dependencies required by eframe for the host platform. The launchers implement eframe 0.34's `App::ui` entry point and apply the theme once during setup.
 
-Use the gallery to inspect narrow and wide forms, wrapped labels, slider editors, disabled controls and exclusive selection. The style-editor example shows the gallery beside the live editor; check that edits affect the preview without replacing host fonts. These are manual visual checks, not assertions made by the headless tests.
+Use the gallery to inspect narrow and wide forms, wrapped labels, slider editors, disabled controls and exclusive selection. The icon section shows default and overridden button sizes, native icon choices and connected icon segments; the editor's Icon buttons group changes shared button/icon sizing live. The style-editor example shows the gallery beside the live editor; check that edits affect the preview without replacing host fonts. These are manual visual checks, not assertions made by the headless tests.
 
 ## CI coverage
 

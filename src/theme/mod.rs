@@ -4,8 +4,8 @@ mod editor;
 mod style;
 pub use editor::style_editor_window;
 pub use style::{
-    CharmingStyle, ChoicesStyle, HeadingStyle, HeadingStyles, PanelButtonStyle, ParameterListStyle,
-    SelectionListStyle,
+    CharmingStyle, ChoicesStyle, HeadingStyle, HeadingStyles, IconButtonStyle, PanelButtonStyle,
+    ParameterListStyle, SelectionListStyle,
 };
 
 use serde::de::DeserializeOwned;

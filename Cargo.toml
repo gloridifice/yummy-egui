@@ -27,5 +27,6 @@ serde = { version = "1.0", features = ["derive"] }
 toml = "0.8.23"
 
 [dev-dependencies]
+egui_extras = { version = "0.34.3", default-features = false, features = ["svg"] }
 eframe = { version = "0.34.3", default-features = false, features = ["default_fonts", "glow", "wayland", "x11"] }
 egui = { version = "0.34.3", features = ["default_fonts"] }

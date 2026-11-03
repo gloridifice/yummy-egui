@@ -145,6 +145,15 @@ fn custom_editor(ui: &mut Ui, style: &mut CharmingStyle) {
             1.0..=500.0,
         );
     });
+    group(ui, "Icon buttons", |ui| {
+        number(ui, "Button size", &mut style.icon_button.size, 1.0..=100.0);
+        number(
+            ui,
+            "Icon size",
+            &mut style.icon_button.icon_size,
+            1.0..=100.0,
+        );
+    });
     group(ui, "Parameter lists", |ui| {
         let s = &mut style.parameter_list;
         number(ui, "Name column ratio", &mut s.name_ratio, 0.01..=0.99);
@@ -225,7 +234,7 @@ fn layout_editor(ui: &mut Ui, style: &mut egui::Style) {
             0.0..=2.0,
         );
     });
-    group(ui, "Window margins", |ui| {
+    group(ui, "Window / panel margins", |ui| {
         margin(ui, &mut style.spacing.window_margin)
     });
     group(ui, "Menu margins", |ui| {

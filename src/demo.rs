@@ -1,5 +1,8 @@
 //! Interactive component gallery. The host owns state, fonts and theme setup.
-use crate::{PanelButton, ParameterList, ParameterSlider, SelectionList};
+use crate::{
+    IconButton, IconChoices, IconSegmentedControl, PanelButton, ParameterList, ParameterSlider,
+    SelectionList,
+};
 
 /// Persistent interaction state for the component gallery.
 #[derive(Clone, Debug)]
@@ -9,6 +12,7 @@ pub struct DemoState {
     frequency: f32,
     mode: usize,
     selected: usize,
+    icon_mode: usize,
     clicks: usize,
 }
 
@@ -20,6 +24,7 @@ impl Default for DemoState {
             frequency: 440.0,
             mode: 0,
             selected: 0,
+            icon_mode: 0,
             clicks: 0,
         }
     }
@@ -89,6 +94,62 @@ pub fn demo_ui(ui: &mut egui::Ui, state: &mut DemoState) {
     crate::parameter_table(ui, "demo table", |ui| {
         crate::parameter(ui, "Disabled", "Disabled slider appearance", |ui| {
             ui.add_enabled(false, ParameterSlider::new(&mut state.gain, 0.0..=1.0));
+        });
+    });
+    crate::h2(ui, "Icon buttons");
+    ui.horizontal(|ui| {
+        if ui
+            .add(IconButton::new("+").label("Count a click"))
+            .clicked()
+        {
+            state.clicks += 1;
+        }
+        ui.add(
+            IconButton::new("★")
+                .size(40.0)
+                .icon_size(24.0)
+                .label("Size override"),
+        );
+        ui.add(IconButton::new("×").enabled(false).label("Disabled action"));
+    });
+    crate::group(ui, "Icon selectors", |ui| {
+        crate::parameter(ui, "Native", "Separate native selectable icons", |ui| {
+            ui.add(IconChoices::new(
+                &mut state.icon_mode,
+                [(0, "◀"), (1, "■"), (2, "▶")],
+            ));
+        });
+        crate::parameter(ui, "Segmented", "Connected exclusive icons", |ui| {
+            ui.add(IconSegmentedControl::new(
+                &mut state.icon_mode,
+                [(0, "◀"), (1, "■"), (2, "▶")],
+            ));
+        });
+        crate::parameter(
+            ui,
+            "Vertical",
+            "Top-to-bottom icon choices and segments",
+            |ui| {
+                ui.horizontal(|ui| {
+                    ui.add(
+                        IconChoices::new(&mut state.icon_mode, [(0, "◀"), (1, "■"), (2, "▶")])
+                            .vertical(),
+                    );
+                    ui.add(
+                        IconSegmentedControl::new(
+                            &mut state.icon_mode,
+                            [(0, "◀"), (1, "■"), (2, "▶")],
+                        )
+                        .vertical(),
+                    );
+                });
+            },
+        );
+        crate::parameter(ui, "Disabled", "Disabled connected icons", |ui| {
+            ui.add_enabled(
+                false,
+                IconSegmentedControl::new(&mut state.icon_mode, [(0, "◀"), (1, "■"), (2, "▶")]),
+            );
         });
     });
     crate::h2(ui, "Selection list");

@@ -1,5 +1,5 @@
 //! Run with `cargo run --example style_editor`.
-use yummy_egui::{DemoState, Theme, demo_window, style_editor_window};
+use yummy_egui::{DemoState, Theme, demo_window, panels, style_editor_window};
 
 struct StyleEditorApp {
     preview: DemoState,
@@ -9,7 +9,7 @@ struct StyleEditorApp {
 
 impl eframe::App for StyleEditorApp {
     fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
-        egui::Panel::top("toolbar").show_inside(ui, |ui| {
+        panels::top(ui, "toolbar").show_inside(ui, |ui| {
             let [editor, preview] = yummy_egui::action_row(
                 ui,
                 [

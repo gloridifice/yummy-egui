@@ -37,15 +37,18 @@ fn external_documents_replace_independently_and_missing_files_use_embedded_defau
     assert_eq!(loaded.egui_style().spacing.interact_size.y, 31.0);
     assert_eq!(loaded.charming_style().slider.width, 2.0);
 
-    // Pre-heading external themes retain their custom values and get only the
-    // newly added heading section from the bundled defaults.
+    // Older external themes retain their custom values and get only the
+    // newly added heading and icon sections from the bundled defaults.
     let mut legacy: toml::Value = toml::from_str(DEFAULT_CHARMING_EGUI).unwrap();
     legacy.as_table_mut().unwrap().remove("headings");
+    legacy.as_table_mut().unwrap().remove("icon_button");
     legacy["parameter_list"]["name_ratio"] = toml::Value::Float(0.35);
     dir.write("yummy_egui.toml", &toml::to_string(&legacy).unwrap());
     let loaded = Theme::load_dir(&dir.0).unwrap();
     assert_eq!(loaded.charming_style().parameter_list.name_ratio, 0.35);
     assert_eq!(loaded.charming_style().headings.h3.size, 14.0);
+    assert_eq!(loaded.charming_style().icon_button.size, 28.0);
+    assert_eq!(loaded.charming_style().icon_button.icon_size, 16.0);
 
     // A partial file replaces, rather than merging over, the bundled document.
     // egui accepts defaults; Dock requires a complete serialized Style.
@@ -143,6 +146,12 @@ fn malformed_or_unsafe_component_sizes_are_reported_instead_of_silently_falling_
         ("headings.h1", "size = 0.0"),
         ("headings.h1", "margin_top = -1.0"),
         ("headings.h3", "margin_bottom = inf"),
+        ("icon_button", "size = 0.0"),
+        ("icon_button", "size = -1.0"),
+        ("icon_button", "size = inf"),
+        ("icon_button", "icon_size = 0.0"),
+        ("icon_button", "icon_size = -1.0"),
+        ("icon_button", "icon_size = nan"),
         ("slider", "width = 0.0"),
         ("slider", "hover_width = 1.0"),
         ("slider", "background = [21, 21, 21, 0]"),

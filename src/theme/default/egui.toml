@@ -47,11 +47,12 @@ combo_height = 200.0
 x = 8.0
 y = 3.0
 
+# Shared by native windows and yummy_egui::panels; matches dock tab content.
 [spacing.window_margin]
-left = 6
-right = 6
-top = 6
-bottom = 6
+left = 10
+right = 10
+top = 10
+bottom = 10
 
 [spacing.button_padding]
 x = 4.0

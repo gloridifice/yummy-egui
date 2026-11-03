@@ -8,6 +8,9 @@ use std::sync::{Arc, OnceLock};
 pub struct CharmingStyle {
     pub slider: SliderAppearance,
     pub panel_button: PanelButtonStyle,
+    /// Shared sizing for icon actions and both icon selectors.
+    #[serde(default)]
+    pub icon_button: IconButtonStyle,
     pub parameter_list: ParameterListStyle,
     pub selection_list: SelectionListStyle,
     pub choices: ChoicesStyle,
@@ -50,6 +53,27 @@ impl Default for HeadingStyles {
 pub struct PanelButtonStyle {
     pub margin: egui::Margin,
     pub min_action_width: f32,
+}
+
+/// Fixed square button and glyph/image dimensions, in logical points.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct IconButtonStyle {
+    pub size: f32,
+    pub icon_size: f32,
+}
+
+impl Default for IconButtonStyle {
+    fn default() -> Self {
+        // Read only this section to support external themes predating icons.
+        #[derive(Deserialize)]
+        struct Document {
+            icon_button: IconButtonStyle,
+        }
+        toml::from_str::<Document>(super::DEFAULT_CHARMING_EGUI)
+            .expect("embedded icon button style must match its schema")
+            .icon_button
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -164,6 +188,8 @@ impl CharmingStyle {
             ("slider.width", slider.width),
             ("slider.hover_width", slider.hover_width),
             ("slider.value_width", slider.value_width),
+            ("icon_button.size", self.icon_button.size),
+            ("icon_button.icon_size", self.icon_button.icon_size),
             (
                 "panel_button.min_action_width",
                 self.panel_button.min_action_width,
