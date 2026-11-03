@@ -32,13 +32,13 @@ Embedded TOML or explicit host-supplied files/strings
   -> Theme value (no context mutation)
   -> Theme::apply(host context)
        -> egui theme preference and global style on that context
-       -> custom CharmingStyle in that context's temporary data
+       -> custom YummyStyle in that context's temporary data
   -> widgets and lists read current styles while drawing
 ```
 
 The three documents are independent: `egui.toml`, `yummy_egui.toml` and, with `dock`, `egui_dock.toml`. Missing documents use embedded defaults; supplied documents replace whole documents. There is no file watcher or automatic write-back. [The theming contract](specs/theming.md) defines validation, errors and migration requirements.
 
-Default themes are parsed lazily and cached, then cloned for callers. Custom component styles are shared through `Arc<CharmingStyle>` in context-local egui data. Without an installed custom style, components use the embedded custom defaults. `Theme::apply` neither installs fonts nor applies a dock style; a host passes the dock style directly to its `DockArea`.
+Default themes are parsed lazily and cached, then cloned for callers. Custom component styles are shared through `Arc<YummyStyle>` in context-local egui data. Without an installed custom style, components use the embedded custom defaults. `Theme::apply` neither installs fonts nor applies a dock style; a host passes the dock style directly to its `DockArea`.
 
 The live editor reads styles from the context, validates custom-style edits and installs accepted changes back into that context. It edits common egui settings and custom components, not dock styles or theme files. Reapplying a previously loaded `Theme` overwrites those live edits.
 

@@ -1,15 +1,17 @@
 //! Two-column parameter forms. Each group owns one Grid, not one Grid per row.
-use crate::theme::{CharmingStyle, ParameterListStyle};
+use crate::theme::{ParameterListStyle, YummyStyle};
 use egui::{Id, Ui};
 use std::hash::Hash;
 
-/// Bounded name/control columns, with wrapping names and vertically centered rows.
+/// A two-column parameter form with bounded name/control columns, wrapping
+/// names and vertically centered rows. Each list owns a single [`egui::Grid`].
 pub struct ParameterList {
     id: Id,
     style: Option<ParameterListStyle>,
 }
 
 impl ParameterList {
+    /// Create a parameter form with a caller-supplied ID unique within the parent UI.
     pub fn new(id: impl Hash) -> Self {
         Self {
             id: Id::new(id),
@@ -17,11 +19,13 @@ impl ParameterList {
         }
     }
 
+    /// Override the context's [`ParameterListStyle`] for this list only.
     pub fn style(mut self, style: ParameterListStyle) -> Self {
         self.style = Some(style);
         self
     }
 
+    /// Render the two-column form and return the closure's result.
     pub fn show<R>(self, ui: &mut Ui, rows: impl FnOnce(&mut ParameterRows<'_>) -> R) -> R {
         self.show_ui(ui, |ui| rows(&mut ParameterRows { ui }))
     }
@@ -29,7 +33,7 @@ impl ParameterList {
     fn show_ui<R>(self, ui: &mut Ui, rows: impl FnOnce(&mut Ui) -> R) -> R {
         let style = self
             .style
-            .unwrap_or_else(|| CharmingStyle::get(ui.ctx()).parameter_list.clone());
+            .unwrap_or_else(|| YummyStyle::get(ui.ctx()).parameter_list.clone());
         let usable = (ui.available_width() - style.column_spacing).max(0.0);
         let widths = [usable * style.name_ratio, usable * (1.0 - style.name_ratio)];
         let key = widths_key();
@@ -63,13 +67,17 @@ impl ParameterList {
     }
 }
 
-/// Rows are only constructed inside a ParameterList. Row IDs are independent of
-/// the displayed names, so duplicate labels need not share interaction state.
+/// Row builder passed to [`ParameterList::show`].
+///
+/// Row IDs are independent of the displayed names, so duplicate labels need not
+/// share interaction state.
 pub struct ParameterRows<'a> {
     ui: &'a mut Ui,
 }
 
 impl ParameterRows<'_> {
+    /// Append a labeled row with a stable `id`, hover `description`, and right-hand
+    /// `control` closure. `id` must be unique within the enclosing [`ParameterList`].
     pub fn row<R>(
         &mut self,
         id: impl Hash,
@@ -82,16 +90,22 @@ impl ParameterRows<'_> {
 }
 
 fn widths_key() -> Id {
-    Id::new("charming_egui parameter column widths")
+    Id::new("yummy_egui parameter column widths")
 }
 
-/// Ui-based form convenience API. Use ParameterList::show for explicit row IDs.
+/// Ui-based form convenience API. Use [`ParameterList::show`] for explicit row IDs.
 pub fn parameter_table<R>(ui: &mut Ui, id: impl Hash, rows: impl FnOnce(&mut Ui) -> R) -> R {
     ParameterList::new(id).show_ui(ui, rows)
 }
 
-/// Append a row inside parameter_table/group. Names must be unique within a
-/// group; use ParameterRows::row to supply a separate stable ID otherwise.
+/// Append a row inside [`parameter_table`] or [`group`].
+///
+/// Names are used as row IDs and must be unique within the enclosing group; use
+/// [`ParameterRows::row`] to supply a separate stable ID otherwise.
+///
+/// # Panics
+///
+/// Panics if called outside [`parameter_table`] or [`group`].
 pub fn parameter<R>(
     ui: &mut Ui,
     name: &str,
@@ -101,9 +115,9 @@ pub fn parameter<R>(
     row(ui, Id::new(name), name, description, control)
 }
 
-/// H3 title followed by one shared parameter Grid.
+/// [`crate::h3`] title followed by one shared parameter [`egui::Grid`].
 pub fn group(ui: &mut Ui, title: &str, rows: impl FnOnce(&mut Ui)) {
-    let style = CharmingStyle::get(ui.ctx());
+    let style = YummyStyle::get(ui.ctx());
     // Keep old themes' group_spacing as a minimum, not an extra H3 top margin.
     ui.add_space((style.parameter_list.group_spacing - style.headings.h3.margin_top).max(0.0));
     crate::h3(ui, title);

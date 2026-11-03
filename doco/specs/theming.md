@@ -7,7 +7,7 @@ This document describes the current loading and application behavior of `Theme`,
 | Document | Deserialized value | Availability |
 | --- | --- | --- |
 | `egui.toml` | `egui::Style` | Always |
-| `yummy_egui.toml` | `CharmingStyle` | Always |
+| `yummy_egui.toml` | `YummyStyle` | Always |
 | `egui_dock.toml` | `egui_dock::Style` | Only with `dock` |
 
 `Theme::default()` uses the [embedded documents](../../src/theme/default/). `Theme::from_sources` accepts independent optional TOML strings: each `None` selects the corresponding embedded document.
@@ -37,7 +37,7 @@ The bundled `egui.toml` sets `spacing.window_margin` to 10 pt on all sides. Nati
 
 Distances are logical points. `slider.animation_ms` uses milliseconds; egui's own `animation_time` uses seconds. Colors use the serde representation of egui's color types, as shown in the bundled documents.
 
-`CharmingStyle::validate()` exposes the same custom-style checks for programmatically constructed styles. Callers supplying widget-specific overrides should validate those values before use; constructing an override does not automatically run the full theme loader.
+`YummyStyle::validate()` exposes the same custom-style checks for programmatically constructed styles. Callers supplying widget-specific overrides should validate those values before use; constructing an override does not automatically run the full theme loader.
 
 Validation of egui and dock styles is not an exhaustive geometry validator. Beyond the finite-number check, their schema and defaults are governed by the corresponding upstream versions.
 
@@ -64,8 +64,6 @@ An external egui 0.33 document with a `[debug]` section needs these fields for t
 warn_if_rect_changes_id = false
 show_focused_widget = false
 ```
-
-The custom document is named `yummy_egui.toml`. Rename existing external `charming_egui.toml` files to `yummy_egui.toml`; the loader no longer reads the old filename and does not rename files automatically. The filename change itself does not alter the TOML schema. Public Rust API names, including `CharmingStyle`, `ThemeSources::charming_egui`, `Theme::charming_style` and `DEFAULT_CHARMING_EGUI`, remain unchanged.
 
 Serialized egui and dock styles are tied to their upstream schemas. Recheck external themes when changing those dependencies.
 

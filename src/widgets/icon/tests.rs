@@ -33,12 +33,12 @@ fn pointer(pos: Pos2, pressed: bool) -> Vec<Event> {
 #[test]
 fn theme_and_code_sizes_control_frames_and_icons_without_parent_stretching() {
     let ctx = Context::default();
-    let mut style = crate::CharmingStyle::default();
+    let mut style = crate::YummyStyle::default();
     style.icon_button.size = 34.0;
     style.icon_button.icon_size = 18.0;
     let source = toml::to_string(&style).unwrap();
     crate::Theme::from_sources(crate::ThemeSources {
-        charming_egui: Some(&source),
+        yummy_egui: Some(&source),
         ..Default::default()
     })
     .unwrap()
@@ -208,7 +208,7 @@ fn both_icon_selectors_handle_exclusive_changes_repeats_disabled_empty_and_singl
         let step = if connected {
             30.0
         } else {
-            30.0 + crate::CharmingStyle::get(&ctx).choices.spacing
+            30.0 + crate::YummyStyle::get(&ctx).choices.spacing
         };
         let expected_size = if vertical {
             egui::vec2(30.0, 2.0 * step + 30.0)

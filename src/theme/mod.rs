@@ -4,8 +4,8 @@ mod editor;
 mod style;
 pub use editor::style_editor_window;
 pub use style::{
-    CharmingStyle, ChoicesStyle, HeadingStyle, HeadingStyles, IconButtonStyle, PanelButtonStyle,
-    ParameterListStyle, SelectionListStyle,
+    ChoicesStyle, HeadingStyle, HeadingStyles, IconButtonStyle, PanelButtonStyle,
+    ParameterListStyle, SelectionListStyle, YummyStyle,
 };
 
 use serde::de::DeserializeOwned;
@@ -15,40 +15,64 @@ use std::{
     sync::OnceLock,
 };
 
+/// Embedded `egui.toml` document for [`egui::Style`].
 pub const DEFAULT_EGUI: &str = include_str!("default/egui.toml");
-pub const DEFAULT_CHARMING_EGUI: &str = include_str!("default/yummy_egui.toml");
+/// Embedded `yummy_egui.toml` document for [`YummyStyle`].
+pub const DEFAULT_YUMMY_EGUI: &str = include_str!("default/yummy_egui.toml");
+/// Embedded `egui_dock.toml` document for [`egui_dock::Style`].
 #[cfg(feature = "dock")]
 pub const DEFAULT_EGUI_DOCK: &str = include_str!("default/egui_dock.toml");
 
-/// Each absent source falls back to the corresponding embedded document.
+/// Optional in-memory TOML documents for [`Theme::from_sources`].
+///
+/// Each absent (`None`) source falls back to the corresponding embedded document;
+/// each supplied (`Some`) source replaces that entire document.
 #[derive(Default)]
 pub struct ThemeSources<'a> {
+    /// Complete `egui.toml` text for [`egui::Style`], or `None` for [`DEFAULT_EGUI`].
     pub egui: Option<&'a str>,
-    pub charming_egui: Option<&'a str>,
+    /// Complete `yummy_egui.toml` text for [`YummyStyle`], or `None` for [`DEFAULT_YUMMY_EGUI`].
+    pub yummy_egui: Option<&'a str>,
+    /// Complete `egui_dock.toml` text for [`egui_dock::Style`], or `None` for [`DEFAULT_EGUI_DOCK`].
     #[cfg(feature = "dock")]
     pub egui_dock: Option<&'a str>,
 }
 
+/// Parsed and validated theme containing [`egui::Style`], [`YummyStyle`], and
+/// (with the `dock` feature) [`egui_dock::Style`].
+///
+/// Constructing or loading a `Theme` does not mutate any [`egui::Context`]; call
+/// [`Theme::apply`] to install it into a specific context.
 #[derive(Clone, Debug)]
 pub struct Theme {
     egui: egui::Style,
-    charming: CharmingStyle,
+    yummy: YummyStyle,
     #[cfg(feature = "dock")]
     dock: egui_dock::Style,
 }
 
+/// Error returned when reading, parsing, or validating a theme document fails.
 #[derive(Debug)]
 pub enum ThemeError {
+    /// Failed to inspect the theme directory or read a theme file from disk.
     Io {
+        /// Failing directory or file path.
         path: PathBuf,
+        /// Underlying filesystem I/O error.
         source: io::Error,
     },
+    /// A theme document is not valid TOML or does not match its serde schema.
     Parse {
+        /// Logical document name (`"egui.toml"`, `"yummy_egui.toml"`, or `"egui_dock.toml"`).
         file: &'static str,
+        /// Underlying TOML deserialization error with line/column diagnostics.
         source: toml::de::Error,
     },
+    /// A parsed document contains non-finite numbers or violates [`YummyStyle::validate`].
     Invalid {
+        /// Logical document name (`"egui.toml"`, `"yummy_egui.toml"`, or `"egui_dock.toml"`).
         file: &'static str,
+        /// Human-readable validation failure reason.
         message: String,
     },
 }
@@ -85,18 +109,21 @@ impl Default for Theme {
 }
 
 impl Theme {
+    /// Parse and validate a theme from in-memory TOML strings.
+    ///
+    /// Any `None` field in [`ThemeSources`] uses the bundled default document.
     pub fn from_sources(sources: ThemeSources<'_>) -> Result<Self, ThemeError> {
-        let charming: CharmingStyle = parse(
+        let yummy: YummyStyle = parse(
             "yummy_egui.toml",
-            sources.charming_egui.unwrap_or(DEFAULT_CHARMING_EGUI),
+            sources.yummy_egui.unwrap_or(DEFAULT_YUMMY_EGUI),
         )?;
-        charming.validate().map_err(|message| ThemeError::Invalid {
+        yummy.validate().map_err(|message| ThemeError::Invalid {
             file: "yummy_egui.toml",
             message,
         })?;
         Ok(Self {
             egui: parse("egui.toml", sources.egui.unwrap_or(DEFAULT_EGUI))?,
-            charming,
+            yummy,
             #[cfg(feature = "dock")]
             dock: parse(
                 "egui_dock.toml",
@@ -124,12 +151,12 @@ impl Theme {
             });
         }
         let egui = read_optional(&path.join("egui.toml"))?;
-        let charming = read_optional(&path.join("yummy_egui.toml"))?;
+        let yummy = read_optional(&path.join("yummy_egui.toml"))?;
         #[cfg(feature = "dock")]
         let dock = read_optional(&path.join("egui_dock.toml"))?;
         Self::from_sources(ThemeSources {
             egui: egui.as_deref(),
-            charming_egui: charming.as_deref(),
+            yummy_egui: yummy.as_deref(),
             #[cfg(feature = "dock")]
             egui_dock: dock.as_deref(),
         })
@@ -144,15 +171,20 @@ impl Theme {
             egui::Theme::Light
         });
         context.set_global_style(self.egui.clone());
-        self.charming.install(context);
+        self.yummy.install(context);
     }
 
+    /// Borrow the parsed base [`egui::Style`].
     pub fn egui_style(&self) -> &egui::Style {
         &self.egui
     }
-    pub fn charming_style(&self) -> &CharmingStyle {
-        &self.charming
+
+    /// Borrow the parsed custom [`YummyStyle`].
+    pub fn yummy_style(&self) -> &YummyStyle {
+        &self.yummy
     }
+
+    /// Borrow the parsed [`egui_dock::Style`]. Pass a clone to `DockArea::style(...)`.
     #[cfg(feature = "dock")]
     pub fn dock_style(&self) -> &egui_dock::Style {
         &self.dock

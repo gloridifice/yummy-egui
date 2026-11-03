@@ -9,7 +9,7 @@ struct IconSizing {
 
 impl IconSizing {
     fn resolve(self, ui: &Ui) -> (f32, f32) {
-        let style = crate::CharmingStyle::get(ui.ctx());
+        let style = crate::YummyStyle::get(ui.ctx());
         let size = self.size.unwrap_or(style.icon_button.size);
         let icon_size = self.icon_size.unwrap_or(style.icon_button.icon_size);
         (size, icon_size.min(size))
@@ -52,6 +52,7 @@ pub struct IconButton<'a> {
 }
 
 impl<'a> IconButton<'a> {
+    /// Create a fixed-size square icon button from a glyph, [`egui::RichText`], or [`egui::Image`].
     pub fn new(icon: impl Into<AtomKind<'a>>) -> Self {
         Self {
             icon: icon.into(),
@@ -75,6 +76,7 @@ impl<'a> IconButton<'a> {
         self
     }
 
+    /// Enable or disable the button (combined with the parent UI's enabled state).
     pub fn enabled(mut self, enabled: bool) -> Self {
         self.enabled = enabled;
         self
@@ -118,6 +120,7 @@ impl<'a, T: Copy + PartialEq> IconChoices<'a, T> {
         self
     }
 
+    /// Create an exclusive icon selector bound to `value` with `(choice, icon)` pairs.
     pub fn new<I: Into<AtomKind<'a>>>(
         value: &'a mut T,
         items: impl IntoIterator<Item = (T, I)>,
@@ -170,6 +173,7 @@ impl<'a, T: Copy + PartialEq> IconSegmentedControl<'a, T> {
         self
     }
 
+    /// Create a connected exclusive icon selector bound to `value` with `(choice, icon)` pairs.
     pub fn new<I: Into<AtomKind<'a>>>(
         value: &'a mut T,
         items: impl IntoIterator<Item = (T, I)>,
@@ -259,7 +263,7 @@ impl<'a, T: Copy + PartialEq> IconSelector<'a, T> {
                 |ui, _, rect, corners| draw(ui, rect, Some(corners)),
             )
         } else {
-            let gap = crate::CharmingStyle::get(ui.ctx()).choices.spacing;
+            let gap = crate::YummyStyle::get(ui.ctx()).choices.spacing;
             let length = size * count as f32 + gap * (count - 1) as f32;
             let mut response = allocate_fixed(ui, along(length, size));
             let rect = response.rect;

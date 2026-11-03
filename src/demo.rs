@@ -32,8 +32,8 @@ impl Default for DemoState {
 
 /// Show a closable gallery window. Apply a theme once in the host, not per frame.
 pub fn demo_window(ctx: &egui::Context, open: &mut bool, state: &mut DemoState) {
-    egui::Window::new("Charming egui demo")
-        .id(egui::Id::new("charming_egui demo"))
+    egui::Window::new("Yummy egui demo")
+        .id(egui::Id::new("yummy_egui demo"))
         .open(open)
         .default_width(480.0)
         .default_pos(egui::pos2(20.0, 50.0))
@@ -43,7 +43,7 @@ pub fn demo_window(ctx: &egui::Context, open: &mut bool, state: &mut DemoState) 
 
 /// Draw the gallery in a host-provided UI; use a distinct UI ID for each instance.
 pub fn demo_ui(ui: &mut egui::Ui, state: &mut DemoState) {
-    crate::h1(ui, "Charming egui");
+    crate::h1(ui, "Yummy egui");
     ui.label("Interactive widgets using the current context theme.");
     crate::h2(ui, "Headings");
     crate::h3(ui, "Third-level heading");

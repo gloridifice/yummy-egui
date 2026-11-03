@@ -1,3 +1,5 @@
+//! Two-column parameter forms and scrollable full-width selection lists.
+
 mod parameter;
 mod selection;
 

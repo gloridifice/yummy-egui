@@ -11,7 +11,7 @@ impl PanelButtonSpacing {
         let padding = ui.spacing().button_padding;
         Self {
             padding: egui::Margin::symmetric(padding.x as i8, padding.y as i8),
-            margin: crate::CharmingStyle::get(ui.ctx()).panel_button.margin,
+            margin: crate::YummyStyle::get(ui.ctx()).panel_button.margin,
         }
     }
 }
@@ -25,6 +25,7 @@ pub struct PanelButton {
 }
 
 impl PanelButton {
+    /// Create a full-width panel button with the given label.
     pub fn new(text: impl Into<egui::WidgetText>) -> Self {
         Self {
             text: text.into(),
@@ -32,6 +33,7 @@ impl PanelButton {
         }
     }
 
+    /// Enable or disable the button (combined with the parent UI's enabled state).
     pub fn enabled(mut self, enabled: bool) -> Self {
         self.enabled = enabled;
         self
@@ -93,8 +95,13 @@ impl egui::Widget for PanelButton {
     }
 }
 
-/// Equal-width actions with theme spacing. Below 96 pt per button (excluding
-/// its margins), stack the group. Render once and return native responses.
+/// Equal-width actions with theme spacing. Below `min_action_width` (96 pt by
+/// default) per button (excluding its margins), stack the group vertically.
+/// Render once and return native responses.
+///
+/// # Panics
+///
+/// Panics if `N == 0`.
 pub fn action_row<const N: usize>(
     ui: &mut egui::Ui,
     buttons: [PanelButton; N],
@@ -103,7 +110,7 @@ pub fn action_row<const N: usize>(
     let gap = ui.spacing().item_spacing.x;
     let width = (ui.available_width() - gap * (N - 1) as f32) / N as f32;
     if width - PanelButtonSpacing::from_ui(ui).margin.sum().x
-        < crate::CharmingStyle::get(ui.ctx())
+        < crate::YummyStyle::get(ui.ctx())
             .panel_button
             .min_action_width
     {

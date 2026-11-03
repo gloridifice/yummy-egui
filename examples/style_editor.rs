@@ -31,7 +31,7 @@ impl eframe::App for StyleEditorApp {
 
 fn main() -> eframe::Result {
     eframe::run_native(
-        "Charming egui style editor",
+        "Yummy egui style editor",
         eframe::NativeOptions {
             viewport: egui::ViewportBuilder::default().with_inner_size([1100.0, 800.0]),
             ..Default::default()

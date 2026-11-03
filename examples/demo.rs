@@ -46,7 +46,7 @@ impl eframe::App for DemoApp {
 
 fn main() -> eframe::Result {
     eframe::run_native(
-        "Charming egui demo",
+        "Yummy egui demo",
         eframe::NativeOptions {
             viewport: egui::ViewportBuilder::default().with_inner_size([640.0, 800.0]),
             ..Default::default()

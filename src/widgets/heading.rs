@@ -1,5 +1,5 @@
 //! RichText headings with vertical margins, including inside horizontal toolbars.
-use crate::{CharmingStyle, theme::HeadingStyle};
+use crate::{YummyStyle, theme::HeadingStyle};
 use egui::{Response, RichText, Ui};
 
 /// High-contrast, bold 20 pt heading by default, with 12/8 pt top/bottom margins.
@@ -7,7 +7,7 @@ pub fn h1(ui: &mut Ui, text: impl Into<String>) -> Response {
     heading(
         ui,
         text.into(),
-        &CharmingStyle::get(ui.ctx()).headings.h1,
+        &YummyStyle::get(ui.ctx()).headings.h1,
         true,
     )
 }
@@ -17,7 +17,7 @@ pub fn h2(ui: &mut Ui, text: impl Into<String>) -> Response {
     heading(
         ui,
         text.into(),
-        &CharmingStyle::get(ui.ctx()).headings.h2,
+        &YummyStyle::get(ui.ctx()).headings.h2,
         true,
     )
 }
@@ -27,7 +27,7 @@ pub fn h3(ui: &mut Ui, text: impl Into<String>) -> Response {
     heading(
         ui,
         text.into(),
-        &CharmingStyle::get(ui.ctx()).headings.h3,
+        &YummyStyle::get(ui.ctx()).headings.h3,
         false,
     )
 }

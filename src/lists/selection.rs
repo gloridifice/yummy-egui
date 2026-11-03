@@ -1,9 +1,13 @@
 //! Scrollable full-width selectable rows. The application owns selection and
 //! actions; even an already selected item returns its ordinary click response.
-use crate::theme::{CharmingStyle, SelectionListStyle};
+use crate::theme::{SelectionListStyle, YummyStyle};
 use egui::{Id, Response, Ui};
 use std::hash::Hash;
 
+/// A vertically scrollable list of full-width selectable rows.
+///
+/// The host application owns selection state and decides how to handle clicks;
+/// clicking an already selected enabled row still reports `clicked()`.
 pub struct SelectionList {
     id: Id,
     max_height: f32,
@@ -11,6 +15,7 @@ pub struct SelectionList {
 }
 
 impl SelectionList {
+    /// Create a selection list with a caller-supplied ID unique within the parent UI.
     pub fn new(id: impl Hash) -> Self {
         Self {
             id: Id::new(id),
@@ -18,14 +23,20 @@ impl SelectionList {
             style: None,
         }
     }
+
+    /// Cap the vertical scroll area's height in logical points (`INFINITY` by default).
     pub fn max_height(mut self, height: f32) -> Self {
         self.max_height = height;
         self
     }
+
+    /// Override the context's [`SelectionListStyle`] for this list only.
     pub fn style(mut self, style: SelectionListStyle) -> Self {
         self.style = Some(style);
         self
     }
+
+    /// Render the scrollable list and return the closure's result with the outer response.
     pub fn show<R>(
         self,
         ui: &mut Ui,
@@ -33,7 +44,7 @@ impl SelectionList {
     ) -> egui::InnerResponse<R> {
         let style = self
             .style
-            .unwrap_or_else(|| CharmingStyle::get(ui.ctx()).selection_list.clone());
+            .unwrap_or_else(|| YummyStyle::get(ui.ctx()).selection_list.clone());
         let frame = if style.frame {
             egui::Frame::group(ui.style())
         } else {
@@ -63,12 +74,17 @@ impl SelectionList {
     }
 }
 
+/// Row builder passed to [`SelectionList::show`].
+///
+/// Caller-supplied row IDs must be unique within the list and stable across
+/// reordering; visible labels and row order need not be unique or stable.
 pub struct SelectionRows<'a> {
     ui: &'a mut Ui,
     wrap: bool,
 }
 
 impl SelectionRows<'_> {
+    /// Append an enabled selectable row and return its native [`Response`].
     pub fn item(
         &mut self,
         id: impl Hash,
@@ -78,8 +94,8 @@ impl SelectionRows<'_> {
         self.item_enabled(id, selected, true, text)
     }
 
-    /// A disabled row stays visible but cannot activate. Context menus and tooltips
-    /// can be attached to the returned native Response by the caller.
+    /// Append a row that may be disabled. A disabled row stays visible but cannot
+    /// activate; context menus and tooltips can be attached to the returned [`Response`].
     pub fn item_enabled(
         &mut self,
         id: impl Hash,

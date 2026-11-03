@@ -7,23 +7,42 @@ use std::ops::RangeInclusive;
 #[derive(Clone, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SliderAppearance {
+    /// Vertical distance in logical points by which the idle marker is inset inside the track;
+    /// must be finite and non-negative.
     pub inset: f32,
+    /// Vertical distance in logical points by which the hovered/dragged marker extends beyond the track;
+    /// must be finite and non-negative.
     pub outset: f32,
+    /// Idle marker width in logical points; must be finite and strictly positive.
     pub width: f32,
+    /// Hovered/dragged marker width in logical points; must be finite, strictly positive, and at least `width`.
     pub hover_width: f32,
+    /// Target width of the right-hand numeric `DragValue` editor in logical points;
+    /// must be finite and strictly positive.
     pub value_width: f32,
+    /// Marker hover transition duration in milliseconds; must be finite and non-negative.
     pub animation_ms: f32,
+    /// Optional track corner radius in logical points (`None` inherits egui's inactive widget corner radius);
+    /// when `Some`, must be finite and non-negative.
     pub background_radius: Option<f32>,
+    /// Optional marker corner radius in logical points (`None` inherits egui's inactive widget corner radius);
+    /// when `Some`, must be finite and non-negative.
     pub marker_radius: Option<f32>,
+    /// Horizontal padding between the widest marker edge and the track ends in logical points;
+    /// must be finite and non-negative.
     pub edge_padding: f32,
+    /// Track fill color (also used by [`crate::segmented_control`] and [`crate::IconSegmentedControl`]);
+    /// must be fully opaque (`alpha == 255`).
     pub background: Color32,
+    /// Idle marker fill color.
     pub marker: Color32,
+    /// Hovered or dragged marker fill color.
     pub hover_marker: Color32,
 }
 
 impl Default for SliderAppearance {
     fn default() -> Self {
-        crate::CharmingStyle::default().slider
+        crate::YummyStyle::default().slider
     }
 }
 
@@ -80,6 +99,7 @@ pub struct ParameterSlider<'a, T: Numeric> {
 }
 
 impl<'a, T: Numeric> ParameterSlider<'a, T> {
+    /// Create a slider bound to `value` over the finite inclusive `range`.
     pub fn new(value: &'a mut T, range: RangeInclusive<T>) -> Self {
         Self {
             value,
@@ -94,36 +114,55 @@ impl<'a, T: Numeric> ParameterSlider<'a, T> {
             height: None,
         }
     }
+
+    /// Enable or disable a logarithmic scale. When enabled, both range bounds must be non-negative.
     pub fn logarithmic(mut self, enabled: bool) -> Self {
         self.logarithmic = enabled;
         self
     }
+
+    /// Smallest positive value representable before zero on a logarithmic slider.
     pub fn smallest_positive(mut self, value: f64) -> Self {
         self.smallest_positive = value;
         self
     }
+
+    /// Configure how out-of-range values are clamped (`SliderClamping::Always` by default).
     pub fn clamping(mut self, value: egui::SliderClamping) -> Self {
         self.clamping = value;
         self
     }
+
+    /// Maximum number of decimals displayed in the numeric editor.
     pub fn max_decimals(mut self, value: usize) -> Self {
         self.max_decimals = Some(value);
         self
     }
+
+    /// Quantize slider and `DragValue` edits to multiples of `value`.
     pub fn step_by(mut self, value: f64) -> Self {
         self.step = Some(value);
         self
     }
+
+    /// Append a unit or label suffix in the numeric editor (for example `" Hz"`).
     pub fn suffix(mut self, value: impl Into<String>) -> Self {
         self.suffix = value.into();
         self
     }
+
+    /// Override the context's [`SliderAppearance`] for this slider only.
     pub fn appearance(mut self, value: &SliderAppearance) -> Self {
         self.appearance = Some(value.clone());
         self
     }
+
     /// Override the minimum interaction height in logical points, independently
     /// of the skin. Text and padding may still require a taller editor.
+    ///
+    /// # Panics
+    ///
+    /// Panics unless `height` is finite and strictly positive.
     pub fn height(mut self, height: f32) -> Self {
         assert!(height.is_finite() && height > 0.0);
         self.height = Some(height);
@@ -135,7 +174,7 @@ impl<T: Numeric> egui::Widget for ParameterSlider<'_, T> {
     fn ui(self, ui: &mut Ui) -> Response {
         let appearance = self
             .appearance
-            .unwrap_or_else(|| crate::CharmingStyle::get(ui.ctx()).slider.clone());
+            .unwrap_or_else(|| crate::YummyStyle::get(ui.ctx()).slider.clone());
         let min = self.range.start().to_f64();
         let max = self.range.end().to_f64();
         debug_assert!(min.is_finite() && max.is_finite());

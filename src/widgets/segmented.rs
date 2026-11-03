@@ -61,7 +61,7 @@ pub(super) fn segmented_row(
     let rect = ui.layout().align_size_within_rect(size, outer);
     let mut response = ui.interact(rect, id, egui::Sense::hover());
     let radius = ui.visuals().widgets.inactive.corner_radius;
-    let background = crate::CharmingStyle::get(ui.ctx()).slider.background;
+    let background = crate::YummyStyle::get(ui.ctx()).slider.background;
     // Unselected native buttons skip painting their frame while idle, regardless
     // of the inactive fill. A shared track keeps native hover fills unchanged.
     ui.painter().rect_filled(rect, radius, background);

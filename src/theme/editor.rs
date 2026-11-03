@@ -1,5 +1,5 @@
 //! In-memory style editing built from yummy_egui components.
-use super::{CharmingStyle, Theme};
+use super::{Theme, YummyStyle};
 use crate::{PanelButton, ParameterSlider, group, parameter, segmented_control};
 use egui::{Color32, Ui};
 
@@ -7,8 +7,8 @@ use egui::{Color32, Ui};
 /// Includes all custom style fields and common egui layout, font and visual
 /// settings. Changes are live and are not persisted. Dock styles are not edited.
 pub fn style_editor_window(ctx: &egui::Context, open: &mut bool) {
-    egui::Window::new("Charming egui style editor")
-        .id(egui::Id::new("charming_egui style editor"))
+    egui::Window::new("Yummy egui style editor")
+        .id(egui::Id::new("yummy_egui style editor"))
         .open(open)
         .default_width(480.0)
         .default_pos(egui::pos2(540.0, 50.0))
@@ -28,7 +28,7 @@ pub fn style_editor_window(ctx: &egui::Context, open: &mut bool) {
                 &[(0, "Components"), (1, "Layout"), (2, "Colors")],
             );
             ctx.data_mut(|data| data.insert_temp(page_id, page));
-            let mut custom = CharmingStyle::get(ctx).as_ref().clone();
+            let mut custom = YummyStyle::get(ctx).as_ref().clone();
             let before = custom.clone();
             let mut base = ctx.global_style().as_ref().clone();
             let base_before = base.clone();
@@ -102,7 +102,7 @@ fn color(ui: &mut Ui, title: &str, value: &mut Color32, opaque: bool) {
     });
 }
 
-fn custom_editor(ui: &mut Ui, style: &mut CharmingStyle) {
+fn custom_editor(ui: &mut Ui, style: &mut YummyStyle) {
     for (name, heading) in [
         ("H1", &mut style.headings.h1),
         ("H2", &mut style.headings.h2),

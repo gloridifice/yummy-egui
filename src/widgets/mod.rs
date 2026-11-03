@@ -1,3 +1,6 @@
+//! Reusable widgets: parameter sliders, panel and icon buttons, exclusive
+//! selectors, and H1–H3 headings.
+
 mod button;
 mod choices;
 mod heading;

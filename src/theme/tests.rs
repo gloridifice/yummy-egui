@@ -6,7 +6,7 @@ impl Directory {
     fn new() -> Self {
         static NEXT: AtomicU64 = AtomicU64::new(0);
         let path = std::env::temp_dir().join(format!(
-            "charming-egui-{}-{}",
+            "yummy-egui-{}-{}",
             std::process::id(),
             NEXT.fetch_add(1, Ordering::Relaxed)
         ));
@@ -29,26 +29,26 @@ fn external_documents_replace_independently_and_missing_files_use_embedded_defau
     let default = Theme::load_dir(&dir.0).unwrap();
     // Migration contract: these are not egui's own defaults.
     assert_eq!(default.egui_style().spacing.interact_size.y, 22.0);
-    assert_eq!(default.charming_style().parameter_list.name_ratio, 0.42);
+    assert_eq!(default.yummy_style().parameter_list.name_ratio, 0.42);
     let mut egui = default.egui_style().clone();
     egui.spacing.interact_size.y = 31.0;
     dir.write("egui.toml", &toml::to_string(&egui).unwrap());
     let loaded = Theme::load_dir(&dir.0).unwrap();
     assert_eq!(loaded.egui_style().spacing.interact_size.y, 31.0);
-    assert_eq!(loaded.charming_style().slider.width, 2.0);
+    assert_eq!(loaded.yummy_style().slider.width, 2.0);
 
     // Older external themes retain their custom values and get only the
     // newly added heading and icon sections from the bundled defaults.
-    let mut legacy: toml::Value = toml::from_str(DEFAULT_CHARMING_EGUI).unwrap();
+    let mut legacy: toml::Value = toml::from_str(DEFAULT_YUMMY_EGUI).unwrap();
     legacy.as_table_mut().unwrap().remove("headings");
     legacy.as_table_mut().unwrap().remove("icon_button");
     legacy["parameter_list"]["name_ratio"] = toml::Value::Float(0.35);
     dir.write("yummy_egui.toml", &toml::to_string(&legacy).unwrap());
     let loaded = Theme::load_dir(&dir.0).unwrap();
-    assert_eq!(loaded.charming_style().parameter_list.name_ratio, 0.35);
-    assert_eq!(loaded.charming_style().headings.h3.size, 14.0);
-    assert_eq!(loaded.charming_style().icon_button.size, 28.0);
-    assert_eq!(loaded.charming_style().icon_button.icon_size, 16.0);
+    assert_eq!(loaded.yummy_style().parameter_list.name_ratio, 0.35);
+    assert_eq!(loaded.yummy_style().headings.h3.size, 14.0);
+    assert_eq!(loaded.yummy_style().icon_button.size, 28.0);
+    assert_eq!(loaded.yummy_style().icon_button.icon_size, 16.0);
 
     // A partial file replaces, rather than merging over, the bundled document.
     // egui accepts defaults; Dock requires a complete serialized Style.
@@ -97,7 +97,7 @@ fn dock_file_is_loaded_only_when_the_feature_is_enabled() {
 #[test]
 fn applying_external_component_styles_is_context_local_and_preserves_host_fonts() {
     let dir = Directory::new();
-    let mut style = CharmingStyle::default();
+    let mut style = YummyStyle::default();
     style.parameter_list.name_ratio = 0.35;
     style.slider.marker = egui::Color32::RED;
     dir.write("yummy_egui.toml", &toml::to_string(&style).unwrap());
@@ -112,12 +112,9 @@ fn applying_external_component_styles_is_context_local_and_preserves_host_fonts(
     );
     context.set_fonts(fonts);
     theme.apply(&context);
-    assert_eq!(CharmingStyle::get(&context).parameter_list.name_ratio, 0.35);
-    assert_eq!(
-        CharmingStyle::get(&context).slider.marker,
-        egui::Color32::RED
-    );
-    assert_eq!(CharmingStyle::get(&other).parameter_list.name_ratio, 0.42);
+    assert_eq!(YummyStyle::get(&context).parameter_list.name_ratio, 0.35);
+    assert_eq!(YummyStyle::get(&context).slider.marker, egui::Color32::RED);
+    assert_eq!(YummyStyle::get(&other).parameter_list.name_ratio, 0.42);
     let _ = context.run_ui(egui::RawInput::default(), |ui| {
         assert!(ui.fonts(|fonts| fonts.definitions().families.contains_key(&family)));
     });
@@ -131,10 +128,7 @@ fn applying_external_component_styles_is_context_local_and_preserves_host_fonts(
             ..
         })
     ));
-    assert_eq!(
-        CharmingStyle::get(&context).slider.marker,
-        egui::Color32::RED
-    );
+    assert_eq!(YummyStyle::get(&context).slider.marker, egui::Color32::RED);
 }
 
 #[test]
@@ -156,7 +150,7 @@ fn malformed_or_unsafe_component_sizes_are_reported_instead_of_silently_falling_
         ("slider", "hover_width = 1.0"),
         ("slider", "background = [21, 21, 21, 0]"),
     ] {
-        let mut document: toml::Value = toml::from_str(DEFAULT_CHARMING_EGUI).unwrap();
+        let mut document: toml::Value = toml::from_str(DEFAULT_YUMMY_EGUI).unwrap();
         let mut table = &mut document;
         for key in section.split('.') {
             table = table.get_mut(key).unwrap();
@@ -167,7 +161,7 @@ fn malformed_or_unsafe_component_sizes_are_reported_instead_of_silently_falling_
         assert!(
             matches!(
                 Theme::from_sources(ThemeSources {
-                    charming_egui: Some(&text),
+                    yummy_egui: Some(&text),
                     ..Default::default()
                 }),
                 Err(ThemeError::Invalid {
@@ -180,7 +174,7 @@ fn malformed_or_unsafe_component_sizes_are_reported_instead_of_silently_falling_
     }
     assert!(
         Theme::from_sources(ThemeSources {
-            charming_egui: Some("[slider]\nunknown = true"),
+            yummy_egui: Some("[slider]\nunknown = true"),
             ..Default::default()
         })
         .is_err()
