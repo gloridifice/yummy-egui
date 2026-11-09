@@ -6,6 +6,12 @@ English | [简体中文](readme/zh-CN.md) | [日本語](readme/ja-JP.md) | [Fran
 
 </div>
 
+<div align="center">
+
+![Yummy egui cover](readme/yummy_egui.jpg)
+
+</div>
+
 Backend-independent widgets, parameter forms, selection lists, and TOML themes for egui 0.34.3.
 
 The application owns its rendering backend, fonts, windows, selection state, and persistence. `eframe` is used only by the examples.
